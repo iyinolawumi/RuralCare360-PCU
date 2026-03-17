@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - RuralCare360</title>
+    <title>Admin Dashboard - RuralCare360</title>
     <style>
 /* ===================================
    RuralCare360 - Main Stylesheet
@@ -1226,10 +1226,10 @@ body {
     <nav class="navbar navbar-dashboard">
         <div class="container">
             <div class="nav-brand">
-                <h2>🏥 RuralCare360</h2>
+                <h2>🏥 RuralCare360 — Admin</h2>
             </div>
             <div class="nav-user">
-                <span id="userGreeting">Welcome, User</span>
+                <span id="userGreeting">Welcome, Admin</span>
                 <button id="logoutBtn" class="btn-secondary btn-small">Logout</button>
             </div>
         </div>
@@ -1240,28 +1240,28 @@ body {
         <aside class="sidebar">
             <ul class="sidebar-menu">
                 <li class="sidebar-item active" data-section="overview">
-                    <span class="icon">📊</span>
-                    <span>Overview</span>
+                    <span class="icon">📊</span><span>Overview</span>
+                </li>
+                <li class="sidebar-item" data-section="users">
+                    <span class="icon">👥</span><span>Users</span>
+                </li>
+                <li class="sidebar-item" data-section="doctors">
+                    <span class="icon">👨‍⚕️</span><span>Doctors</span>
+                </li>
+                <li class="sidebar-item" data-section="patients">
+                    <span class="icon">👤</span><span>Patients</span>
                 </li>
                 <li class="sidebar-item" data-section="appointments">
-                    <span class="icon">📅</span>
-                    <span>Appointments</span>
-                </li>
-                <li class="sidebar-item" data-section="records">
-                    <span class="icon">📋</span>
-                    <span>Health Records</span>
-                </li>
-                <li class="sidebar-item" data-section="prescriptions">
-                    <span class="icon">💊</span>
-                    <span>Prescriptions</span>
+                    <span class="icon">📅</span><span>Appointments</span>
                 </li>
                 <li class="sidebar-item" data-section="consultations">
-                    <span class="icon">📹</span>
-                    <span>Consultations</span>
+                    <span class="icon">📹</span><span>Consultations</span>
                 </li>
-                <li class="sidebar-item" data-section="profile">
-                    <span class="icon">👤</span>
-                    <span>Profile</span>
+                <li class="sidebar-item" data-section="reports">
+                    <span class="icon">📈</span><span>Reports</span>
+                </li>
+                <li class="sidebar-item" data-section="settings">
+                    <span class="icon">⚙️</span><span>Settings</span>
                 </li>
             </ul>
         </aside>
@@ -1270,88 +1270,238 @@ body {
 
             <!-- OVERVIEW -->
             <section id="overview" class="dashboard-section active">
-                <h1>Dashboard Overview</h1>
+                <h1>Admin Dashboard Overview</h1>
                 <div class="stats-grid">
                     <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info"><h3>Total Users</h3><p class="stat-number">1,234</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👨‍⚕️</div>
+                        <div class="stat-info"><h3>Active Doctors</h3><p class="stat-number">45</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-info"><h3>Registered Patients</h3><p class="stat-number">1,189</p></div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-icon">📅</div>
-                        <div class="stat-info">
-                            <h3>Upcoming Appointments</h3>
-                            <p class="stat-number">3</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">📋</div>
-                        <div class="stat-info">
-                            <h3>Health Records</h3>
-                            <p class="stat-number">12</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">💊</div>
-                        <div class="stat-info">
-                            <h3>Active Prescriptions</h3>
-                            <p class="stat-number">2</p>
-                        </div>
+                        <div class="stat-info"><h3>Total Appointments</h3><p class="stat-number">2,456</p></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">📹</div>
-                        <div class="stat-info">
-                            <h3>Consultations This Month</h3>
-                            <p class="stat-number">5</p>
-                        </div>
+                        <div class="stat-info"><h3>Consultations Today</h3><p class="stat-number">28</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info"><h3>Revenue This Month</h3><p class="stat-number">₦1.2M</p></div>
                     </div>
                 </div>
                 <div class="recent-activity">
-                    <h2>Recent Activity</h2>
+                    <h2>Recent System Activity</h2>
                     <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">👨‍⚕️</div>
+                            <div class="activity-details">
+                                <h4>New Doctor Registration</h4>
+                                <p>Dr. Adewale Johnson registered — Pending verification</p>
+                                <span class="activity-time">10 minutes ago</span>
+                            </div>
+                        </div>
                         <div class="activity-item">
                             <div class="activity-icon">📅</div>
                             <div class="activity-details">
                                 <h4>Appointment Scheduled</h4>
-                                <p>Video consultation with Dr. Adeyemi - Tomorrow at 10:00 AM</p>
+                                <p>Patient ID: PT1234 booked with Dr. Okonkwo</p>
+                                <span class="activity-time">25 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">⚠️</div>
+                            <div class="activity-details">
+                                <h4>System Alert</h4>
+                                <p>Server storage at 75% capacity</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">👤</div>
+                            <div class="activity-details">
+                                <h4>New Patient Registrations</h4>
+                                <p>15 new patients registered today</p>
                                 <span class="activity-time">2 hours ago</span>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">💊</div>
-                            <div class="activity-details">
-                                <h4>New Prescription</h4>
-                                <p>Amoxicillin 500mg prescribed by Dr. Okonkwo</p>
-                                <span class="activity-time">1 day ago</span>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">📋</div>
-                            <div class="activity-details">
-                                <h4>Health Record Updated</h4>
-                                <p>Blood pressure reading added to your records</p>
-                                <span class="activity-time">3 days ago</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- USERS -->
+            <section id="users" class="dashboard-section">
+                <div class="section-header">
+                    <h1>User Management</h1>
+                    <button class="btn-primary" id="addUserBtn">Add New User</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th><th>Name</th><th>Email</th>
+                                <th>Role</th><th>Status</th><th>Registered</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>USR001</td><td>Chioma Adeyemi</td><td>c.adeyemi@email.com</td>
+                                <td><span class="badge badge-doctor">Doctor</span></td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>Jan 15, 2024</td>
+                                <td>
+                                    <button class="btn-small btn-secondary">View</button>
+                                    <button class="btn-small btn-danger">Suspend</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>USR002</td><td>Ibrahim Okonkwo</td><td>i.okonkwo@email.com</td>
+                                <td><span class="badge badge-doctor">Doctor</span></td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>Jan 10, 2024</td>
+                                <td>
+                                    <button class="btn-small btn-secondary">View</button>
+                                    <button class="btn-small btn-danger">Suspend</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>USR003</td><td>John Doe</td><td>john.doe@email.com</td>
+                                <td><span class="badge badge-patient">Patient</span></td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>Jan 8, 2024</td>
+                                <td>
+                                    <button class="btn-small btn-secondary">View</button>
+                                    <button class="btn-small btn-danger">Suspend</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- DOCTORS -->
+            <section id="doctors" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Doctor Management</h1>
+                    <button class="btn-primary" id="verifyDoctorBtn">Verify Pending</button>
+                </div>
+                <div class="records-grid">
+                    <div class="record-card">
+                        <h3>Dr. Chioma Adeyemi</h3>
+                        <div class="record-content">
+                            <p><strong>License:</strong> MDCN/2018/12345</p>
+                            <p><strong>Specialization:</strong> General Practitioner</p>
+                            <p><strong>Experience:</strong> 5 years</p>
+                            <p><strong>Patients:</strong> 145</p>
+                            <p><strong>Rating:</strong> ⭐ 4.8/5.0</p>
+                            <p><strong>Status:</strong> <span class="badge badge-active">Verified</span></p>
+                            <div class="appointment-actions">
+                                <button class="btn-secondary btn-small">View Profile</button>
+                                <button class="btn-primary btn-small">View Schedule</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="record-card">
+                        <h3>Dr. Ibrahim Okonkwo</h3>
+                        <div class="record-content">
+                            <p><strong>License:</strong> MDCN/2015/67890</p>
+                            <p><strong>Specialization:</strong> Internal Medicine</p>
+                            <p><strong>Experience:</strong> 8 years</p>
+                            <p><strong>Patients:</strong> 223</p>
+                            <p><strong>Rating:</strong> ⭐ 4.9/5.0</p>
+                            <p><strong>Status:</strong> <span class="badge badge-active">Verified</span></p>
+                            <div class="appointment-actions">
+                                <button class="btn-secondary btn-small">View Profile</button>
+                                <button class="btn-primary btn-small">View Schedule</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="record-card">
+                        <h3>Dr. Adewale Johnson</h3>
+                        <div class="record-content">
+                            <p><strong>License:</strong> MDCN/2020/11223</p>
+                            <p><strong>Specialization:</strong> Pediatrics</p>
+                            <p><strong>Experience:</strong> 3 years</p>
+                            <p><strong>Patients:</strong> 0</p>
+                            <p><strong>Rating:</strong> N/A</p>
+                            <p><strong>Status:</strong> <span class="badge badge-warning">Pending</span></p>
+                            <div class="appointment-actions">
+                                <button class="btn-secondary btn-small">View Docs</button>
+                                <button class="btn-primary btn-small">Verify</button>
+                                <button class="btn-danger btn-small">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PATIENTS -->
+            <section id="patients" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Patient Management</h1>
+                    <input type="text" placeholder="Search patients..." class="search-input">
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th><th>Name</th><th>Age</th>
+                                <th>Location</th><th>Appointments</th><th>Last Visit</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PT1234</td><td>John Doe</td><td>35</td>
+                                <td>Lagos, Ikeja</td><td>12</td><td>Jan 10, 2024</td>
+                                <td>
+                                    <button class="btn-small btn-secondary">View Records</button>
+                                    <button class="btn-small btn-primary">Message</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PT1235</td><td>Jane Smith</td><td>28</td>
+                                <td>Ogun, Abeokuta</td><td>8</td><td>Jan 12, 2024</td>
+                                <td>
+                                    <button class="btn-small btn-secondary">View Records</button>
+                                    <button class="btn-small btn-primary">Message</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PT1236</td><td>Ahmed Ibrahim</td><td>42</td>
+                                <td>Kano, Kano</td><td>15</td><td>Jan 14, 2024</td>
+                                <td>
+                                    <button class="btn-small btn-secondary">View Records</button>
+                                    <button class="btn-small btn-primary">Message</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <!-- APPOINTMENTS -->
             <section id="appointments" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Appointments</h1>
-                    <button class="btn-primary" id="newAppointmentBtn">Schedule New</button>
-                </div>
+                <h1>Appointment Management</h1>
                 <div class="appointments-list">
                     <div class="appointment-card upcoming">
                         <div class="appointment-header">
                             <h3>Video Consultation</h3>
-                            <span class="status-badge status-upcoming">Upcoming</span>
+                            <span class="status-badge status-upcoming">Scheduled</span>
                         </div>
                         <div class="appointment-details">
-                            <p><strong>Doctor:</strong> Dr. Chioma Adeyemi (General Practitioner)</p>
-                            <p><strong>Date:</strong> Tomorrow, January 15, 2024</p>
-                            <p><strong>Time:</strong> 10:00 AM - 10:30 AM</p>
-                            <p><strong>Type:</strong> Follow-up consultation</p>
+                            <p><strong>Patient:</strong> John Doe (PT1234)</p>
+                            <p><strong>Doctor:</strong> Dr. Chioma Adeyemi</p>
+                            <p><strong>Date:</strong> Today, 2:00 PM</p>
+                            <p><strong>Type:</strong> Follow-up</p>
                         </div>
                         <div class="appointment-actions">
-                            <button class="btn-primary btn-small">Join Call</button>
                             <button class="btn-secondary btn-small">Reschedule</button>
                             <button class="btn-danger btn-small">Cancel</button>
                         </div>
@@ -1359,118 +1509,16 @@ body {
                     <div class="appointment-card">
                         <div class="appointment-header">
                             <h3>In-Person Consultation</h3>
-                            <span class="status-badge status-scheduled">Scheduled</span>
+                            <span class="status-badge status-completed">Completed</span>
                         </div>
                         <div class="appointment-details">
-                            <p><strong>Doctor:</strong> Dr. Ibrahim Okonkwo (Internal Medicine)</p>
-                            <p><strong>Date:</strong> January 20, 2024</p>
-                            <p><strong>Time:</strong> 2:00 PM - 2:30 PM</p>
-                            <p><strong>Location:</strong> RuralCare Clinic, Ikeja</p>
+                            <p><strong>Patient:</strong> Jane Smith (PT1235)</p>
+                            <p><strong>Doctor:</strong> Dr. Ibrahim Okonkwo</p>
+                            <p><strong>Date:</strong> Jan 12, 2024 — 10:00 AM</p>
+                            <p><strong>Duration:</strong> 30 minutes</p>
                         </div>
                         <div class="appointment-actions">
-                            <button class="btn-secondary btn-small">Reschedule</button>
-                            <button class="btn-danger btn-small">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- HEALTH RECORDS -->
-            <section id="records" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Health Records</h1>
-                    <button class="btn-primary" id="addRecordBtn">Add Record</button>
-                </div>
-                <div class="records-grid">
-                    <div class="record-card">
-                        <h3>Vital Signs</h3>
-                        <div class="record-content">
-                            <p><strong>Blood Pressure:</strong> 120/80 mmHg</p>
-                            <p><strong>Heart Rate:</strong> 72 bpm</p>
-                            <p><strong>Temperature:</strong> 36.8°C</p>
-                            <p><strong>Weight:</strong> 70 kg</p>
-                            <p class="record-date">Last updated: Jan 10, 2024</p>
-                        </div>
-                    </div>
-                    <div class="record-card">
-                        <h3>Lab Results</h3>
-                        <div class="record-content">
-                            <p><strong>Test:</strong> Complete Blood Count</p>
-                            <p><strong>Status:</strong> Normal</p>
-                            <p><strong>Ordered by:</strong> Dr. Adeyemi</p>
-                            <p class="record-date">Date: Jan 5, 2024</p>
-                            <button class="btn-secondary btn-small">View Full Report</button>
-                        </div>
-                    </div>
-                    <div class="record-card">
-                        <h3>Medical History</h3>
-                        <div class="record-content">
-                            <p><strong>Allergies:</strong> Penicillin</p>
-                            <p><strong>Chronic Conditions:</strong> None</p>
-                            <p><strong>Previous Surgeries:</strong> Appendectomy (2018)</p>
-                            <p class="record-date">Last reviewed: Jan 1, 2024</p>
-                        </div>
-                    </div>
-                    <div class="record-card">
-                        <h3>Immunizations</h3>
-                        <div class="record-content">
-                            <p><strong>COVID-19:</strong> Fully vaccinated + Booster</p>
-                            <p><strong>Tetanus:</strong> Updated 2022</p>
-                            <p><strong>Hepatitis B:</strong> Completed series</p>
-                            <p class="record-date">Last updated: Dec 2023</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PRESCRIPTIONS -->
-            <section id="prescriptions" class="dashboard-section">
-                <h1>Prescriptions</h1>
-                <div class="prescriptions-container">
-                    <h2>Active Prescriptions</h2>
-                    <div class="prescription-card active">
-                        <div class="prescription-header">
-                            <h3>Amoxicillin 500mg</h3>
-                            <span class="status-badge status-active">Active</span>
-                        </div>
-                        <div class="prescription-details">
-                            <p><strong>Dosage:</strong> 1 capsule, 3 times daily</p>
-                            <p><strong>Duration:</strong> 7 days</p>
-                            <p><strong>Prescribed by:</strong> Dr. Ibrahim Okonkwo</p>
-                            <p><strong>Date:</strong> Jan 8, 2024</p>
-                            <p><strong>Instructions:</strong> Take with food</p>
-                        </div>
-                        <div class="prescription-progress">
-                            <p>Progress: Day 3 of 7</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 43%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="prescription-card active">
-                        <div class="prescription-header">
-                            <h3>Paracetamol 500mg</h3>
-                            <span class="status-badge status-active">Active</span>
-                        </div>
-                        <div class="prescription-details">
-                            <p><strong>Dosage:</strong> 1-2 tablets as needed</p>
-                            <p><strong>Max Dose:</strong> 8 tablets per day</p>
-                            <p><strong>Prescribed by:</strong> Dr. Chioma Adeyemi</p>
-                            <p><strong>Date:</strong> Jan 5, 2024</p>
-                            <p><strong>Instructions:</strong> For pain or fever</p>
-                        </div>
-                    </div>
-                    <h2>Past Prescriptions</h2>
-                    <div class="prescription-card">
-                        <div class="prescription-header">
-                            <h3>Ibuprofen 400mg</h3>
-                            <span class="status-badge">Completed</span>
-                        </div>
-                        <div class="prescription-details">
-                            <p><strong>Dosage:</strong> 1 tablet, 2 times daily</p>
-                            <p><strong>Duration:</strong> 5 days</p>
-                            <p><strong>Prescribed by:</strong> Dr. Adeyemi</p>
-                            <p><strong>Completed:</strong> Dec 28, 2023</p>
+                            <button class="btn-secondary btn-small">View Report</button>
                         </div>
                     </div>
                 </div>
@@ -1478,9 +1526,20 @@ body {
 
             <!-- CONSULTATIONS -->
             <section id="consultations" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Consultations</h1>
-                    <button class="btn-primary" id="requestConsultationBtn">Request Consultation</button>
+                <h1>Consultation Monitoring</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📹</div>
+                        <div class="stat-info"><h3>Today's Consultations</h3><p class="stat-number">28</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-info"><h3>Average Duration</h3><p class="stat-number">25 min</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info"><h3>Completion Rate</h3><p class="stat-number">95%</p></div>
+                    </div>
                 </div>
                 <div class="consultations-list">
                     <div class="consultation-card">
@@ -1489,85 +1548,114 @@ body {
                             <span class="status-badge status-completed">Completed</span>
                         </div>
                         <div class="consultation-details">
+                            <p><strong>Patient:</strong> John Doe (PT1234)</p>
                             <p><strong>Doctor:</strong> Dr. Chioma Adeyemi</p>
-                            <p><strong>Date:</strong> January 8, 2024</p>
-                            <p><strong>Type:</strong> Video Consultation</p>
-                            <p><strong>Duration:</strong> 25 minutes</p>
-                            <p><strong>Diagnosis:</strong> Upper respiratory infection</p>
+                            <p><strong>Date:</strong> Jan 14, 2024</p>
+                            <p><strong>Type:</strong> Video — 25 minutes</p>
                         </div>
                         <div class="consultation-actions">
+                            <button class="btn-secondary btn-small">View Recording</button>
                             <button class="btn-secondary btn-small">View Notes</button>
-                            <button class="btn-secondary btn-small">Download Report</button>
-                        </div>
-                    </div>
-                    <div class="consultation-card">
-                        <div class="consultation-header">
-                            <h3>Follow-up - Hypertension</h3>
-                            <span class="status-badge status-completed">Completed</span>
-                        </div>
-                        <div class="consultation-details">
-                            <p><strong>Doctor:</strong> Dr. Ibrahim Okonkwo</p>
-                            <p><strong>Date:</strong> December 20, 2023</p>
-                            <p><strong>Type:</strong> In-Person</p>
-                            <p><strong>Duration:</strong> 30 minutes</p>
-                            <p><strong>Diagnosis:</strong> Blood pressure under control</p>
-                        </div>
-                        <div class="consultation-actions">
-                            <button class="btn-secondary btn-small">View Notes</button>
-                            <button class="btn-secondary btn-small">Download Report</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- PROFILE -->
-            <section id="profile" class="dashboard-section">
-                <h1>Profile Settings</h1>
+            <!-- REPORTS -->
+            <section id="reports" class="dashboard-section">
+                <h1>System Reports &amp; Analytics</h1>
+                <div class="records-grid">
+                    <div class="record-card">
+                        <h3>Monthly Report</h3>
+                        <div class="record-content">
+                            <p><strong>Period:</strong> January 2024</p>
+                            <p><strong>New Users:</strong> 234</p>
+                            <p><strong>Appointments:</strong> 456</p>
+                            <p><strong>Revenue:</strong> ₦1.2M</p>
+                            <button class="btn-primary btn-small">Download PDF</button>
+                        </div>
+                    </div>
+                    <div class="record-card">
+                        <h3>Doctor Performance</h3>
+                        <div class="record-content">
+                            <p><strong>Top Performer:</strong> Dr. Okonkwo</p>
+                            <p><strong>Consultations:</strong> 89</p>
+                            <p><strong>Rating:</strong> 4.9/5.0</p>
+                            <p><strong>Avg Response:</strong> 12 min</p>
+                            <button class="btn-primary btn-small">Full Report</button>
+                        </div>
+                    </div>
+                    <div class="record-card">
+                        <h3>System Health</h3>
+                        <div class="record-content">
+                            <p><strong>Uptime:</strong> 99.8%</p>
+                            <p><strong>Response Time:</strong> 250ms avg</p>
+                            <p><strong>Active Users:</strong> 567</p>
+                            <p><strong>Storage Used:</strong> 75%</p>
+                            <button class="btn-primary btn-small">View Metrics</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETTINGS -->
+            <section id="settings" class="dashboard-section">
+                <h1>System Settings</h1>
                 <div class="profile-container">
                     <div class="profile-card">
-                        <h2>Personal Information</h2>
-                        <form id="profileForm" class="profile-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="profileFirstName">First Name</label>
-                                    <input type="text" id="profileFirstName" value="John">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profileLastName">Last Name</label>
-                                    <input type="text" id="profileLastName" value="Doe">
-                                </div>
+                        <h2>General Settings</h2>
+                        <form class="profile-form" id="generalSettingsForm">
+                            <div class="form-group">
+                                <label>System Name</label>
+                                <input type="text" value="RuralCare360">
                             </div>
                             <div class="form-group">
-                                <label for="profileEmail">Email</label>
-                                <input type="email" id="profileEmail" value="john.doe@email.com">
+                                <label>Contact Email</label>
+                                <input type="email" value="admin@ruralcare360.com">
                             </div>
                             <div class="form-group">
-                                <label for="profilePhone">Phone</label>
-                                <input type="tel" id="profilePhone" value="08012345678">
+                                <label>Support Phone</label>
+                                <input type="tel" value="08012345678">
                             </div>
                             <div class="form-group">
-                                <label for="profileAddress">Address</label>
-                                <input type="text" id="profileAddress" value="123 Main Street, Ikeja">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Enable new user registrations</span>
+                                </label>
                             </div>
-                            <button type="submit" class="btn-primary">Update Profile</button>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Require email verification</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-primary">Save Settings</button>
                         </form>
                     </div>
                     <div class="profile-card">
-                        <h2>Change Password</h2>
-                        <form id="passwordForm" class="profile-form">
+                        <h2>Security Settings</h2>
+                        <form class="profile-form" id="securitySettingsForm">
                             <div class="form-group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" id="currentPassword">
+                                <label>Session Timeout (minutes)</label>
+                                <input type="number" value="30">
                             </div>
                             <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword">
+                                <label>Max Login Attempts</label>
+                                <input type="number" value="5">
                             </div>
                             <div class="form-group">
-                                <label for="confirmNewPassword">Confirm New Password</label>
-                                <input type="password" id="confirmNewPassword">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Enable two-factor authentication</span>
+                                </label>
                             </div>
-                            <button type="submit" class="btn-primary">Change Password</button>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Log all admin activities</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-primary">Update Security</button>
                         </form>
                     </div>
                 </div>
@@ -1578,6 +1666,7 @@ body {
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
+
         var sidebarItems      = document.querySelectorAll('.sidebar-item');
         var dashboardSections = document.querySelectorAll('.dashboard-section');
 
@@ -1605,6 +1694,23 @@ body {
                 }
             });
         }
+
+        var generalSettingsForm = document.getElementById('generalSettingsForm');
+        if (generalSettingsForm) {
+            generalSettingsForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Settings saved!');
+            });
+        }
+
+        var securitySettingsForm = document.getElementById('securitySettingsForm');
+        if (securitySettingsForm) {
+            securitySettingsForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Security settings updated!');
+            });
+        }
+
     });
     </script>
 
