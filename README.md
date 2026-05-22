@@ -5,6 +5,7 @@ A web-based telemedicine and health records management system designed to improv
 ---
 
 ## 📌 About the Project
+aijnekplaerplriaejiioecdfjieoj
 
 RuralCare360 bridges the healthcare access gap in rural Nigerian communities by providing:
 
