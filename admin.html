@@ -6,3 +6,120 @@
     <title>Dashboard - RuralCare360</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h2>🏥 RuralCare360</h2></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-card auth-card-wide">
+            <h2>Doctor Registration</h2>
+            <p class="auth-subtitle">Join our network of healthcare professionals</p>
+            
+            <form id="doctorSignupForm" class="auth-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required 
+                               placeholder="Enter first name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required 
+                               placeholder="Enter last name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required 
+                           placeholder="e.g., 08012345678">
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialization">Specialization</label>
+                    <select id="specialization" name="specialization" required>
+                        <option value="">Select specialization</option>
+                        <option value="general">General Practitioner</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="obstetrics">Obstetrics & Gynecology</option>
+                        <option value="internal">Internal Medicine</option>
+                        <option value="surgery">Surgery</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseNumber">Medical License Number</label>
+                    <input type="text" id="licenseNumber" name="licenseNumber" required 
+                           placeholder="Enter MDCN license number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="yearsOfExperience">Years of Experience</label>
+                    <input type="number" id="yearsOfExperience" name="yearsOfExperience" 
+                           required min="0" placeholder="Enter years of experience">
+                </div>
+                
+                <div class="form-group">
+                    <label for="hospitalAffiliation">Hospital/Clinic Affiliation</label>
+                    <input type="text" id="hospitalAffiliation" name="hospitalAffiliation" 
+                           placeholder="Current workplace (optional)">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" required 
+                               placeholder="e.g., Lagos">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lga">LGA</label>
+                        <input type="text" id="lga" name="lga" required 
+                               placeholder="Local Government Area">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Create a strong password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required 
+                           placeholder="Re-enter your password">
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" required>
+                        <span>I agree to the Terms of Service and Privacy Policy</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-primary btn-full">Create Account</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="doctor-login.html" class="link">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
