@@ -109,61 +109,76 @@ document.head.appendChild(style);
 // ===== WAIT FOR DOM TO LOAD =====
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ===== PATIENT LOGIN =====
-    const patientLoginForm = document.getElementById('patientLoginForm');
-    if (patientLoginForm) {
-        patientLoginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+// ===== PATIENT LOGIN =====
+const patientLoginForm = document.getElementById('patientLoginForm');
+if (patientLoginForm) {
+    patientLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            if (!validateEmail(email)) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
-            }
+        if (!validateEmail(email)) {
+            showMessage('Please enter a valid email address', 'error');
+            return;
+        }
 
-            try {
-                const response = await apiRequest('/auth/login', 'POST', { email, password });
-                setAuthToken(response.token);
-                setUserType(response.user.role);
-                setUserData(response.user);
-                showMessage('Login successful!', 'success');
+        try {
+            const response = await apiRequest('/auth/login', 'POST', { email, password });
+            setAuthToken(response.token);
+            setUserType(response.user.role);
+            setUserData(response.user);
+            showMessage('Login successful!', 'success');
+                // Redirect based on role
+                // Patient Login redirect
                 setTimeout(() => {
-                    window.location.href = 'Dashboard.html';
-                }, 1000);
-            } catch (error) {
-                showMessage(error.message || 'Login failed. Please try again.', 'error');
-            }
-        });
-    }
+                     if (response.user.role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else if (response.user.role === 'healthworker') {
+                        window.location.href = 'doctor-dashboard.html';
+                    } else {
+                         window.location.href = 'patient-dashboard.html';
+                        }
+                    }, 1000);
+        } catch (error) {
+            showMessage(error.message || 'Login failed. Please try again.', 'error');
+        }
+    });
+}
 
     // ===== DOCTOR LOGIN =====
-    const doctorLoginForm = document.getElementById('doctorLoginForm');
-    if (doctorLoginForm) {
-        doctorLoginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+const doctorLoginForm = document.getElementById('doctorLoginForm');
+if (doctorLoginForm) {
+    doctorLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            if (!validateEmail(email)) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
-            }
+        if (!validateEmail(email)) {
+            showMessage('Please enter a valid email address', 'error');
+            return;
+        }
 
-            try {
-                const response = await apiRequest('/auth/login', 'POST', { email, password });
-                setAuthToken(response.token);
-                setUserType(response.user.role);
-                setUserData(response.user);
-                showMessage('Login successful!', 'success');
-                setTimeout(() => {
-                    window.location.href = 'Dashboard.html';
-                }, 1000);
-            } catch (error) {
-                showMessage(error.message || 'Login failed. Please try again.', 'error');
-            }
-        });
+        try {
+            const response = await apiRequest('/auth/login', 'POST', { email, password });
+            setAuthToken(response.token);
+            setUserType(response.user.role);
+            setUserData(response.user);
+            showMessage('Login successful!', 'success');
+            // Doctor Login redirect
+setTimeout(() => {
+    if (response.user.role === 'admin') {
+        window.location.href = 'admin-dashboard.html';
+    } else if (response.user.role === 'healthworker') {
+        window.location.href = 'doctor-dashboard.html';
+    } else {
+        window.location.href = 'patient-dashboard.html';
     }
+}, 1000);
+        } catch (error) {
+            showMessage(error.message || 'Login failed. Please try again.', 'error');
+        }
+    });
+}
 
     // ===== ADMIN LOGIN =====
     const adminLoginForm = document.getElementById('adminLoginForm');
@@ -184,9 +199,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 setUserType(response.user.role);
                 setUserData(response.user);
                 showMessage('Admin login successful!', 'success');
-                setTimeout(() => {
-                    window.location.href = 'admin-dashboard.html';
-                }, 1000);
+                // Admin Login redirect
+setTimeout(() => {
+    if (response.user.role === 'admin') {
+        window.location.href = 'admin-dashboard.html';
+    } else if (response.user.role === 'healthworker') {
+        window.location.href = 'doctor-dashboard.html';
+    } else {
+        window.location.href = 'patient-dashboard.html';
+    }
+}, 1000);
             } catch (error) {
                 showMessage(error.message || 'Login failed. Please try again.', 'error');
             }
@@ -290,22 +312,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ===== DASHBOARD AUTH CHECK =====
-    if (window.location.pathname.includes('Dashboard.html') ||
-        window.location.pathname.includes('admin-dashboard.html')) {
+if (window.location.pathname.includes('patient-dashboard.html') ||
+    window.location.pathname.includes('doctor-dashboard.html') ||
+    window.location.pathname.includes('admin-dashboard.html')) {
 
-        const token = getAuthToken();
-        const userData = getUserData();
+    const token = getAuthToken();
+    const userData = getUserData();
 
-        if (!token || !userData) {
-            window.location.href = 'index.html';
-            return;
-        }
-
-        const userGreeting = document.getElementById('userGreeting');
-        if (userGreeting && userData) {
-            userGreeting.textContent = `Welcome, ${userData.fullName || 'User'}`;
-        }
+    if (!token || !userData) {
+        window.location.href = 'index.html';
+        return;
     }
+  
+    const userGreeting = document.getElementById('userGreeting');
+    if (userGreeting && userData) {
+        userGreeting.textContent = `Welcome, ${userData.fullName || 'User'}`;
+    }
+}
 
     // ===== SIDEBAR NAVIGATION =====
     const sidebarItems = document.querySelectorAll('.sidebar-item');
