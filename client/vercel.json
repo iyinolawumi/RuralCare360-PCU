@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/patient-login", "destination": "/Patient-login.html" },
+    { "source": "/patient-signup", "destination": "/Patient-signup.html" },
+    { "source": "/doctor-login", "destination": "/Doctor-login.html" },
+    { "source": "/doctor-signup", "destination": "/Doctor-signup.html" },
+    { "source": "/admin-login", "destination": "/admin-login.html" },
+    { "source": "/dashboard", "destination": "/Dashboard.html" },
+    { "source": "/patient-dashboard", "destination": "/patient-dashboard.html" },
+    { "source": "/doctor-dashboard", "destination": "/doctor-dashboard.html" },
+    { "source": "/admin-dashboard", "destination": "/admin-dashboard.html" },
+     { "source": "/(.*)", "destination": "/$1" }
+  ]
+}

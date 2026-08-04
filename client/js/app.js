@@ -3,7 +3,7 @@
    =================================== */
 
 // ===== CONFIGURATION =====
-const API_BASE_URL = 'https://ruralcare360-pcu.onrender.com';
+const API_BASE_URL = 'https://ruralcare360-pcu.onrender.com/api';
 
 // ===== UTILITY FUNCTIONS =====
 function showMessage(message, type = 'success') {
@@ -255,7 +255,7 @@ setTimeout(() => {
                 });
                 showMessage('Registration successful! Redirecting to login...', 'success');
                 setTimeout(() => {
-                    window.location.href = 'Patient-login.html';
+                    window.location.href = 'patient-login.html';
                 }, 2000);
             } catch (error) {
                 showMessage(error.message || 'Registration failed. Please try again.', 'error');
@@ -303,7 +303,7 @@ setTimeout(() => {
                 });
                 showMessage('Registration successful! Redirecting to login...', 'success');
                 setTimeout(() => {
-                    window.location.href = 'Doctor-login.html';
+                    window.location.href = 'doctor-login.html';
                 }, 2000);
             } catch (error) {
                 showMessage(error.message || 'Registration failed. Please try again.', 'error');
