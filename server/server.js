@@ -24,7 +24,15 @@ const io = new Server(server, {
   }
 });
 
-
+// Middleware
+app.use(cors({
+  origin: [
+     'http://localhost:5500',
+     'http://127.0.0.1:5500',
+     'https://rural-care360-pcu.vercel.app/'  // ← add your Vercel URL
+  ],
+  credentials: true
+}));
 
 app.use(express.json());
 
