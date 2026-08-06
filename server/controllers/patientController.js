@@ -22,7 +22,7 @@ exports.createPatient = async (req, res) => {
 
     // Auto-generate NHIS record
     const user = await User.findById(req.user.id);
-    const nhisId = await generateNHISId(NHIS);
+    const nhisId = await generateNHISId();
 
     // Set expiry date to 1 year from now
     const expiryDate = new Date();
