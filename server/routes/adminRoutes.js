@@ -25,6 +25,6 @@ router.put('/users/:id/role', updateUserRole);
 router.delete('/users/:id', deleteUser);
 router.post('/nhis/verify', verifyNHIS);
 router.get('/activity', getRecentActivity);
-router.get('/nhis', protect, authorise('admin'), getAllNHISRecords);
+router.get('/nhis', getAllNHISRecords);
 
 module.exports = router;

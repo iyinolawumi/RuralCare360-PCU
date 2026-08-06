@@ -1,9 +1,8 @@
 // Generates a unique NHIS ID like NHIS-2026-00042
-const generateNHISId = async (NHIS) => {
-  const year = new Date().getFullYear();
-  const count = await NHIS.countDocuments();
-  const padded = String(count + 1).padStart(5, '0');
-  return `NHIS-${year}-${padded}`;
+const generateNHISId = async () => {
+  const year    = new Date().getFullYear();
+  const random  = Math.floor(10000 + Math.random() * 90000); // 5-digit random number
+  return `NHIS-${year}-${random}`;
 };
 
 module.exports = generateNHISId;
