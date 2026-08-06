@@ -19,7 +19,7 @@ function showMessage(message, type = 'success') {
         color: white;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        z-index: 1000;
+        z-index: 10000;
         animation: slideIn 0.3s ease;
     `;
     document.body.appendChild(messageDiv);
@@ -30,21 +30,19 @@ function showMessage(message, type = 'success') {
 }
 
 function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function validatePhone(phone) {
-    const re = /^0[789][01]\d{8}$/;
-    return re.test(phone);
+    return /^0[789][01]\d{8}$/.test(phone);
 }
 
-function setAuthToken(token) { localStorage.setItem('authToken', token); }
-function getAuthToken() { return localStorage.getItem('authToken'); }
-function removeAuthToken() { localStorage.removeItem('authToken'); }
-function setUserType(type) { localStorage.setItem('userType', type); }
-function getUserType() { return localStorage.getItem('userType'); }
-function setUserData(userData) { localStorage.setItem('userData', JSON.stringify(userData)); }
+function setAuthToken(token)    { localStorage.setItem('authToken', token); }
+function getAuthToken()         { return localStorage.getItem('authToken'); }
+function removeAuthToken()      { localStorage.removeItem('authToken'); }
+function setUserType(type)      { localStorage.setItem('userType', type); }
+function getUserType()          { return localStorage.getItem('userType'); }
+function setUserData(userData)  { localStorage.setItem('userData', JSON.stringify(userData)); }
 function getUserData() {
     const data = localStorage.getItem('userData');
     return data ? JSON.parse(data) : null;
@@ -59,7 +57,7 @@ function logout() {
 
 function requireAuth(allowedRoles = []) {
     const token = getAuthToken();
-    const user = getUserData();
+    const user  = getUserData();
     if (!token || !user) {
         window.location.href = 'index.html';
         return false;
@@ -71,7 +69,7 @@ function requireAuth(allowedRoles = []) {
     return true;
 }
 
-// ===== API FUNCTIONS =====
+// ===== API REQUEST =====
 async function apiRequest(endpoint, method = 'GET', data = null) {
     const options = {
         method,
@@ -79,153 +77,124 @@ async function apiRequest(endpoint, method = 'GET', data = null) {
     };
     const token = getAuthToken();
     if (token) options.headers['Authorization'] = `Bearer ${token}`;
-    if (data) options.body = JSON.stringify(data);
+    if (data)  options.body = JSON.stringify(data);
 
-    try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.message || 'Request failed');
-        return result;
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
-    }
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+    const result   = await response.json();
+    if (!response.ok) throw new Error(result.message || 'Request failed');
+    return result;
 }
 
 // ===== ANIMATIONS =====
-const style = document.createElement('style');
-style.textContent = `
+const _animStyle = document.createElement('style');
+_animStyle.textContent = `
     @keyframes slideIn {
         from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        to   { transform: translateX(0);    opacity: 1; }
     }
     @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
+        from { transform: translateX(0);    opacity: 1; }
+        to   { transform: translateX(100%); opacity: 0; }
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(_animStyle);
 
-// ===== WAIT FOR DOM TO LOAD =====
+// ===== LOGIN REDIRECT HELPER =====
+function redirectByRole(role) {
+    if (role === 'admin')        window.location.href = 'admin-dashboard.html';
+    else if (role === 'healthworker') window.location.href = 'doctor-dashboard.html';
+    else                         window.location.href = 'patient-dashboard.html';
+}
+
+// ===== DOM READY =====
 document.addEventListener('DOMContentLoaded', function () {
 
-// ===== PATIENT LOGIN =====
-const patientLoginForm = document.getElementById('patientLoginForm');
-if (patientLoginForm) {
-    patientLoginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        if (!validateEmail(email)) {
-            showMessage('Please enter a valid email address', 'error');
-            return;
-        }
-
-        try {
-            const response = await apiRequest('/auth/login', 'POST', { email, password });
-            setAuthToken(response.token);
-            setUserType(response.user.role);
-            setUserData(response.user);
-            showMessage('Login successful!', 'success');
-                // Redirect based on role
-                // Patient Login redirect
-                setTimeout(() => {
-                     if (response.user.role === 'admin') {
-                        window.location.href = 'admin-dashboard.html';
-                    } else if (response.user.role === 'healthworker') {
-                        window.location.href = 'doctor-dashboard.html';
-                    } else {
-                         window.location.href = 'patient-dashboard.html';
-                        }
-                    }, 1000);
-        } catch (error) {
-            showMessage(error.message || 'Login failed. Please try again.', 'error');
-        }
-    });
-}
-
-    // ===== DOCTOR LOGIN =====
-const doctorLoginForm = document.getElementById('doctorLoginForm');
-if (doctorLoginForm) {
-    doctorLoginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        if (!validateEmail(email)) {
-            showMessage('Please enter a valid email address', 'error');
-            return;
-        }
-
-        try {
-            const response = await apiRequest('/auth/login', 'POST', { email, password });
-            setAuthToken(response.token);
-            setUserType(response.user.role);
-            setUserData(response.user);
-            showMessage('Login successful!', 'success');
-            // Doctor Login redirect
-setTimeout(() => {
-    if (response.user.role === 'admin') {
-        window.location.href = 'admin-dashboard.html';
-    } else if (response.user.role === 'healthworker') {
-        window.location.href = 'doctor-dashboard.html';
-    } else {
-        window.location.href = 'patient-dashboard.html';
-    }
-}, 1000);
-        } catch (error) {
-            showMessage(error.message || 'Login failed. Please try again.', 'error');
-        }
-    });
-}
-
-    // ===== ADMIN LOGIN =====
-    const adminLoginForm = document.getElementById('adminLoginForm');
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', async (e) => {
+    // ── Patient login ─────────────────────────────────
+    const patientLoginForm = document.getElementById('patientLoginForm');
+    if (patientLoginForm) {
+        patientLoginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const email    = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
 
             if (!validateEmail(email)) {
                 showMessage('Please enter a valid email address', 'error');
                 return;
             }
+            try {
+                const response = await apiRequest('/auth/login', 'POST', { email, password });
+                setAuthToken(response.token);
+                setUserType(response.user.role);
+                setUserData(response.user);
+                showMessage('Login successful!', 'success');
+                setTimeout(() => redirectByRole(response.user.role), 1000);
+            } catch (err) {
+                showMessage(err.message || 'Login failed. Please try again.', 'error');
+            }
+        });
+    }
 
+    // ── Doctor login ──────────────────────────────────
+    const doctorLoginForm = document.getElementById('doctorLoginForm');
+    if (doctorLoginForm) {
+        doctorLoginForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email    = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            try {
+                const response = await apiRequest('/auth/login', 'POST', { email, password });
+                setAuthToken(response.token);
+                setUserType(response.user.role);
+                setUserData(response.user);
+                showMessage('Login successful!', 'success');
+                setTimeout(() => redirectByRole(response.user.role), 1000);
+            } catch (err) {
+                showMessage(err.message || 'Login failed. Please try again.', 'error');
+            }
+        });
+    }
+
+    // ── Admin login ───────────────────────────────────
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email    = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
             try {
                 const response = await apiRequest('/auth/login', 'POST', { email, password });
                 setAuthToken(response.token);
                 setUserType(response.user.role);
                 setUserData(response.user);
                 showMessage('Admin login successful!', 'success');
-                // Admin Login redirect
-setTimeout(() => {
-    if (response.user.role === 'admin') {
-        window.location.href = 'admin-dashboard.html';
-    } else if (response.user.role === 'healthworker') {
-        window.location.href = 'doctor-dashboard.html';
-    } else {
-        window.location.href = 'patient-dashboard.html';
-    }
-}, 1000);
-            } catch (error) {
-                showMessage(error.message || 'Login failed. Please try again.', 'error');
+                setTimeout(() => redirectByRole(response.user.role), 1000);
+            } catch (err) {
+                showMessage(err.message || 'Login failed. Please try again.', 'error');
             }
         });
     }
 
-    // ===== PATIENT SIGNUP =====
+    // ── Patient signup ────────────────────────────────
     const patientSignupForm = document.getElementById('patientSignupForm');
     if (patientSignupForm) {
-        patientSignupForm.addEventListener('submit', async (e) => {
+        patientSignupForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const password = document.getElementById('password').value;
+            const firstName       = document.getElementById('firstName').value.trim();
+            const lastName        = document.getElementById('lastName').value.trim();
+            const email           = document.getElementById('email').value.trim();
+            const phone           = document.getElementById('phone').value.trim();
+            const password        = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
             if (!validateEmail(email)) {
@@ -237,7 +206,7 @@ setTimeout(() => {
                 return;
             }
             if (password.length < 6) {
-                showMessage('Password must be at least 6 characters long', 'error');
+                showMessage('Password must be at least 6 characters', 'error');
                 return;
             }
             if (password !== confirmPassword) {
@@ -247,157 +216,39 @@ setTimeout(() => {
 
             try {
                 await apiRequest('/auth/register', 'POST', {
-                    fullName: `${firstName} ${lastName}`,
+                    fullName: firstName + ' ' + lastName,
                     email,
                     phone,
                     password,
                     role: 'patient'
                 });
                 showMessage('Registration successful! Redirecting to login...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'patient-login.html';
-                }, 2000);
-            } catch (error) {
-                showMessage(error.message || 'Registration failed. Please try again.', 'error');
+                setTimeout(() => { window.location.href = 'patient-login.html'; }, 2000);
+            } catch (err) {
+                showMessage(err.message || 'Registration failed. Please try again.', 'error');
             }
         });
     }
 
-    // ===== DOCTOR SIGNUP =====
-    const doctorSignupForm = document.getElementById('doctorSignupForm');
-    if (doctorSignupForm) {
-        doctorSignupForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (!validateEmail(email)) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
-            }
-            if (!validatePhone(phone)) {
-                showMessage('Please enter a valid Nigerian phone number', 'error');
-                return;
-            }
-            if (password.length < 6) {
-                showMessage('Password must be at least 6 characters long', 'error');
-                return;
-            }
-            if (password !== confirmPassword) {
-                showMessage('Passwords do not match', 'error');
-                return;
-            }
-
-            try {
-                await apiRequest('/auth/register', 'POST', {
-                    fullName: `${firstName} ${lastName}`,
-                    email,
-                    phone,
-                    password,
-                    role: 'healthworker'
-                });
-                showMessage('Registration successful! Redirecting to login...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'doctor-login.html';
-                }, 2000);
-            } catch (error) {
-                showMessage(error.message || 'Registration failed. Please try again.', 'error');
-            }
-        });
-    }
-
-    // ===== DASHBOARD AUTH CHECK =====
-if (window.location.pathname.includes('patient-dashboard.html') ||
-    window.location.pathname.includes('doctor-dashboard.html') ||
-    window.location.pathname.includes('admin-dashboard.html')) {
-
-    const token = getAuthToken();
-    const userData = getUserData();
-
-    if (!token || !userData) {
-        window.location.href = 'index.html';
-        return;
-    }
-  
-    const userGreeting = document.getElementById('userGreeting');
-    if (userGreeting && userData) {
-        userGreeting.textContent = `Welcome, ${userData.fullName || 'User'}`;
-    }
-}
-
-    // ===== SIDEBAR NAVIGATION =====
-    const sidebarItems = document.querySelectorAll('.sidebar-item');
-    const dashboardSections = document.querySelectorAll('.dashboard-section');
-
-    sidebarItems.forEach(item => {
-        item.addEventListener('click', function () {
-            const sectionId = item.getAttribute('data-section');
-            sidebarItems.forEach(i => i.classList.remove('active'));
-            dashboardSections.forEach(s => s.classList.remove('active'));
-            item.classList.add('active');
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) targetSection.classList.add('active');
-            const dashboardMain = document.querySelector('.dashboard-main');
-            if (dashboardMain) dashboardMain.scrollTop = 0;
-        });
-    });
-
-    // ===== LOGOUT =====
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to logout?')) logout();
-        });
-    }
-
-    // ===== PROFILE UPDATE =====
+    // ── Profile update ────────────────────────────────
+    // NOTE: doctor-signup and all dashboard forms handle their own
+    // submission logic inline. Only patient profile update lives here.
     const profileForm = document.getElementById('profileForm');
-    if (profileForm) {
-        profileForm.addEventListener('submit', async (e) => {
+    if (profileForm && getUserType() === 'patient') {
+        profileForm.addEventListener('submit', async function (e) {
             e.preventDefault();
             try {
                 await apiRequest('/patients/me', 'PUT', {
-                    phone: document.getElementById('profilePhone')?.value,
-                    address: {
-                        street: document.getElementById('profileAddress')?.value
-                    }
+                    phone:   document.getElementById('profilePhone')?.value,
+                    address: { street: document.getElementById('profileAddress')?.value }
                 });
                 showMessage('Profile updated successfully!', 'success');
-            } catch (error) {
-                showMessage(error.message || 'Failed to update profile', 'error');
+            } catch (err) {
+                showMessage(err.message || 'Failed to update profile', 'error');
             }
         });
     }
 
-    // ===== APPOINTMENT BOOKING =====
-    const newAppointmentBtn = document.getElementById('newAppointmentBtn');
-    if (newAppointmentBtn) {
-        newAppointmentBtn.addEventListener('click', () => {
-            showMessage('Appointment booking feature coming soon!', 'success');
-        });
-    }
+});
 
-    // ===== CONSULTATION REQUEST =====
-    const requestConsultationBtn = document.getElementById('requestConsultationBtn');
-    if (requestConsultationBtn) {
-        requestConsultationBtn.addEventListener('click', () => {
-            showMessage('Consultation request feature coming soon!', 'success');
-        });
-    }
-
-    // ===== ADD HEALTH RECORD =====
-    const addRecordBtn = document.getElementById('addRecordBtn');
-    if (addRecordBtn) {
-        addRecordBtn.addEventListener('click', () => {
-            showMessage('Add health record feature coming soon!', 'success');
-        });
-    }
-
-}); // End DOMContentLoaded
-
-console.log('RuralCare360 JavaScript loaded successfully!');
+console.log('RuralCare360 app.js loaded');
