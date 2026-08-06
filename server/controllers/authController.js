@@ -5,7 +5,10 @@ const jwt = require('jsonwebtoken');
 // ── Register ──────────────────────────────────────────
 exports.register = async (req, res) => {
   try {
-    const { fullName, email, password, role, phone } = req.body;
+    const { fullName, email, password, role, phone,
+        specialization, licenseNumber, yearsOfExperience,
+        hospitalAffiliation, address } = req.body;
+
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -19,12 +22,18 @@ exports.register = async (req, res) => {
 
     // Create new user
     const user = await User.create({
-      fullName,
-      email,
-      password: hashedPassword,
-      role: role || 'patient',
-      phone
-    });
+    fullName,
+    email,
+    password: hashedPassword,
+    role: ['patient', 'healthworker'].includes(role) ? role : 'patient',
+    phone,
+    specialization,
+    licenseNumber,
+    yearsOfExperience,
+    hospitalAffiliation,
+    address
+});
+
 
     // Generate JWT token
     const token = jwt.sign(
