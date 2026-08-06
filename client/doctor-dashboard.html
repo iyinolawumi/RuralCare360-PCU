@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - RuralCare360</title>
+    <title>Health Worker Dashboard - RuralCare360</title>
     <style>
 /* ===================================
    RuralCare360 - Main Stylesheet
@@ -117,7 +117,7 @@ body {
 
 .nav-menu li a {
     text-decoration: none;
-    color: var(--gray-700);
+    color: var(--white-700);
     font-weight: 500;
     transition: color 0.3s ease;
 }
@@ -1219,50 +1219,30 @@ body {
         width: 100%;
     }
 }
+
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-dashboard">
         <div class="container">
-            <div class="nav-brand">
-                <h2>🏥 RuralCare360</h2>
-            </div>
+            <div class="nav-brand"><h2>🏥 RuralCare360</h2></div>
             <div class="nav-user">
-                <span id="userGreeting">Welcome, User</span>
+                <span id="userGreeting">Welcome, Dr.</span>
                 <button id="logoutBtn" class="btn-secondary btn-small">Logout</button>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
-
         <aside class="sidebar">
             <ul class="sidebar-menu">
-                <li class="sidebar-item active" data-section="overview">
-                    <span class="icon">📊</span>
-                    <span>Overview</span>
-                </li>
-                <li class="sidebar-item" data-section="appointments">
-                    <span class="icon">📅</span>
-                    <span>Appointments</span>
-                </li>
-                <li class="sidebar-item" data-section="records">
-                    <span class="icon">📋</span>
-                    <span>Health Records</span>
-                </li>
-                <li class="sidebar-item" data-section="prescriptions">
-                    <span class="icon">💊</span>
-                    <span>Prescriptions</span>
-                </li>
-                <li class="sidebar-item" data-section="consultations">
-                    <span class="icon">📹</span>
-                    <span>Consultations</span>
-                </li>
-                <li class="sidebar-item" data-section="profile">
-                    <span class="icon">👤</span>
-                    <span>Profile</span>
-                </li>
+                <li class="sidebar-item active" data-section="overview"><span class="icon">📊</span><span>Overview</span></li>
+                <li class="sidebar-item" data-section="appointments"><span class="icon">📅</span><span>Appointments</span></li>
+                <li class="sidebar-item" data-section="patients"><span class="icon">👥</span><span>Patients</span></li>
+                <li class="sidebar-item" data-section="consultations"><span class="icon">📹</span><span>Consultations</span></li>
+                <li class="sidebar-item" data-section="referrals"><span class="icon">📤</span><span>Referrals</span></li>
+                <li class="sidebar-item" data-section="profile"><span class="icon">👤</span><span>Profile</span></li>
             </ul>
         </aside>
 
@@ -1274,60 +1254,25 @@ body {
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon">📅</div>
-                        <div class="stat-info">
-                            <h3>Upcoming Appointments</h3>
-                            <p class="stat-number">3</p>
-                        </div>
+                        <div class="stat-info"><h3>My Appointments</h3><p class="stat-number" id="statAppointments">—</p></div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">📋</div>
-                        <div class="stat-info">
-                            <h3>Health Records</h3>
-                            <p class="stat-number">12</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">💊</div>
-                        <div class="stat-info">
-                            <h3>Active Prescriptions</h3>
-                            <p class="stat-number">2</p>
-                        </div>
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info"><h3>Total Patients</h3><p class="stat-number" id="statPatients">—</p></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">📹</div>
-                        <div class="stat-info">
-                            <h3>Consultations This Month</h3>
-                            <p class="stat-number">5</p>
-                        </div>
+                        <div class="stat-info"><h3>Active Consultations</h3><p class="stat-number" id="statConsultations">—</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📤</div>
+                        <div class="stat-info"><h3>Referrals Created</h3><p class="stat-number" id="statReferrals">—</p></div>
                     </div>
                 </div>
                 <div class="recent-activity">
-                    <h2>Recent Activity</h2>
-                    <div class="activity-list">
-                        <div class="activity-item">
-                            <div class="activity-icon">📅</div>
-                            <div class="activity-details">
-                                <h4>Appointment Scheduled</h4>
-                                <p>Video consultation with Dr. Adeyemi - Tomorrow at 10:00 AM</p>
-                                <span class="activity-time">2 hours ago</span>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">💊</div>
-                            <div class="activity-details">
-                                <h4>New Prescription</h4>
-                                <p>Amoxicillin 500mg prescribed by Dr. Okonkwo</p>
-                                <span class="activity-time">1 day ago</span>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">📋</div>
-                            <div class="activity-details">
-                                <h4>Health Record Updated</h4>
-                                <p>Blood pressure reading added to your records</p>
-                                <span class="activity-time">3 days ago</span>
-                            </div>
-                        </div>
+                    <h2>Recent Appointments</h2>
+                    <div class="activity-list" id="activityList">
+                        <p style="color:#888;padding:1rem;">Loading activity...</p>
                     </div>
                 </div>
             </section>
@@ -1335,143 +1280,138 @@ body {
             <!-- APPOINTMENTS -->
             <section id="appointments" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Appointments</h1>
-                    <button class="btn-primary" id="newAppointmentBtn">Schedule New</button>
+                    <h1>My Appointments</h1>
                 </div>
-                <div class="appointments-list">
-                    <div class="appointment-card upcoming">
-                        <div class="appointment-header">
-                            <h3>Video Consultation</h3>
-                            <span class="status-badge status-upcoming">Upcoming</span>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Patient</th><th>Date</th><th>Time</th><th>Type</th><th>Reason</th><th>Status</th><th>Action</th></tr>
+                        </thead>
+                        <tbody id="appointmentsBody">
+                            <tr><td colspan="7" style="text-align:center;padding:2rem;color:#888;">Loading appointments...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Update Status Modal -->
+                <div id="statusModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;">
+                    <div style="background:white;max-width:400px;margin:5rem auto;padding:2rem;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.2);">
+                        <h3 style="margin-bottom:1rem;color:#2E7D32;">Update Appointment Status</h3>
+                        <input type="hidden" id="statusAppointmentId"/>
+                        <div class="form-group">
+                            <label>New Status</label>
+                            <select id="newStatus">
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
                         </div>
-                        <div class="appointment-details">
-                            <p><strong>Doctor:</strong> Dr. Chioma Adeyemi (General Practitioner)</p>
-                            <p><strong>Date:</strong> Tomorrow, January 15, 2024</p>
-                            <p><strong>Time:</strong> 10:00 AM - 10:30 AM</p>
-                            <p><strong>Type:</strong> Follow-up consultation</p>
+                        <div class="form-group">
+                            <label>Notes (optional)</label>
+                            <input type="text" id="statusNotes" placeholder="Add any notes..."/>
                         </div>
-                        <div class="appointment-actions">
-                            <button class="btn-primary btn-small">Join Call</button>
-                            <button class="btn-secondary btn-small">Reschedule</button>
-                            <button class="btn-danger btn-small">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="appointment-card">
-                        <div class="appointment-header">
-                            <h3>In-Person Consultation</h3>
-                            <span class="status-badge status-scheduled">Scheduled</span>
-                        </div>
-                        <div class="appointment-details">
-                            <p><strong>Doctor:</strong> Dr. Ibrahim Okonkwo (Internal Medicine)</p>
-                            <p><strong>Date:</strong> January 20, 2024</p>
-                            <p><strong>Time:</strong> 2:00 PM - 2:30 PM</p>
-                            <p><strong>Location:</strong> RuralCare Clinic, Ikeja</p>
-                        </div>
-                        <div class="appointment-actions">
-                            <button class="btn-secondary btn-small">Reschedule</button>
-                            <button class="btn-danger btn-small">Cancel</button>
+                        <div style="display:flex;gap:1rem;margin-top:1rem;">
+                            <button id="confirmStatusBtn" class="btn-primary">Update</button>
+                            <button id="cancelStatusBtn" class="btn-secondary">Cancel</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- HEALTH RECORDS -->
-            <section id="records" class="dashboard-section">
+            <!-- PATIENTS -->
+            <section id="patients" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Health Records</h1>
-                    <button class="btn-primary" id="addRecordBtn">Add Record</button>
+                    <h1>Patients</h1>
+                    <input type="text" id="patientSearch" class="search-input" placeholder="Search by name..."/>
                 </div>
-                <div class="records-grid">
-                    <div class="record-card">
-                        <h3>Vital Signs</h3>
-                        <div class="record-content">
-                            <p><strong>Blood Pressure:</strong> 120/80 mmHg</p>
-                            <p><strong>Heart Rate:</strong> 72 bpm</p>
-                            <p><strong>Temperature:</strong> 36.8°C</p>
-                            <p><strong>Weight:</strong> 70 kg</p>
-                            <p class="record-date">Last updated: Jan 10, 2024</p>
-                        </div>
-                    </div>
-                    <div class="record-card">
-                        <h3>Lab Results</h3>
-                        <div class="record-content">
-                            <p><strong>Test:</strong> Complete Blood Count</p>
-                            <p><strong>Status:</strong> Normal</p>
-                            <p><strong>Ordered by:</strong> Dr. Adeyemi</p>
-                            <p class="record-date">Date: Jan 5, 2024</p>
-                            <button class="btn-secondary btn-small">View Full Report</button>
-                        </div>
-                    </div>
-                    <div class="record-card">
-                        <h3>Medical History</h3>
-                        <div class="record-content">
-                            <p><strong>Allergies:</strong> Penicillin</p>
-                            <p><strong>Chronic Conditions:</strong> None</p>
-                            <p><strong>Previous Surgeries:</strong> Appendectomy (2018)</p>
-                            <p class="record-date">Last reviewed: Jan 1, 2024</p>
-                        </div>
-                    </div>
-                    <div class="record-card">
-                        <h3>Immunizations</h3>
-                        <div class="record-content">
-                            <p><strong>COVID-19:</strong> Fully vaccinated + Booster</p>
-                            <p><strong>Tetanus:</strong> Updated 2022</p>
-                            <p><strong>Hepatitis B:</strong> Completed series</p>
-                            <p class="record-date">Last updated: Dec 2023</p>
-                        </div>
-                    </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Name</th><th>Email</th><th>Phone</th><th>Blood Group</th><th>Genotype</th><th>NHIS ID</th><th>Action</th></tr>
+                        </thead>
+                        <tbody id="patientsBody">
+                            <tr><td colspan="7" style="text-align:center;padding:2rem;color:#888;">Loading patients...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
-            </section>
 
-            <!-- PRESCRIPTIONS -->
-            <section id="prescriptions" class="dashboard-section">
-                <h1>Prescriptions</h1>
-                <div class="prescriptions-container">
-                    <h2>Active Prescriptions</h2>
-                    <div class="prescription-card active">
-                        <div class="prescription-header">
-                            <h3>Amoxicillin 500mg</h3>
-                            <span class="status-badge status-active">Active</span>
+                <!-- Patient Detail Panel -->
+                <div id="patientDetail" style="display:none;background:white;padding:1.5rem;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);margin-top:2rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+                        <h3 style="color:#2E7D32;" id="detailPatientName">Patient Details</h3>
+                        <button id="closeDetailBtn" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+                        <div class="record-card">
+                            <h3>Medical Info</h3>
+                            <div class="record-content">
+                                <p><strong>Blood Group:</strong> <span id="detailBloodGroup">—</span></p>
+                                <p><strong>Genotype:</strong> <span id="detailGenotype">—</span></p>
+                                <p><strong>Allergies:</strong> <span id="detailAllergies">—</span></p>
+                                <p><strong>Chronic Conditions:</strong> <span id="detailConditions">—</span></p>
+                            </div>
                         </div>
-                        <div class="prescription-details">
-                            <p><strong>Dosage:</strong> 1 capsule, 3 times daily</p>
-                            <p><strong>Duration:</strong> 7 days</p>
-                            <p><strong>Prescribed by:</strong> Dr. Ibrahim Okonkwo</p>
-                            <p><strong>Date:</strong> Jan 8, 2024</p>
-                            <p><strong>Instructions:</strong> Take with food</p>
-                        </div>
-                        <div class="prescription-progress">
-                            <p>Progress: Day 3 of 7</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 43%;"></div>
+                        <div class="record-card">
+                            <h3>Contact</h3>
+                            <div class="record-content">
+                                <p><strong>Phone:</strong> <span id="detailPhone">—</span></p>
+                                <p><strong>Address:</strong> <span id="detailAddress">—</span></p>
+                                <p><strong>Next of Kin:</strong> <span id="detailKin">—</span></p>
+                                <p><strong>NHIS ID:</strong> <span id="detailNhis">—</span></p>
                             </div>
                         </div>
                     </div>
-                    <div class="prescription-card active">
-                        <div class="prescription-header">
-                            <h3>Paracetamol 500mg</h3>
-                            <span class="status-badge status-active">Active</span>
+
+                    <!-- Add Medical History -->
+                    <div style="margin-bottom:1.5rem;">
+                        <h3 style="color:#2E7D32;margin-bottom:1rem;">Add Medical History Entry</h3>
+                        <div id="historyError" style="display:none;background:#ffebee;color:#c62828;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+                        <div id="historySuccess" style="display:none;background:#e8f5e9;color:#2e7d32;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+                        <input type="hidden" id="detailPatientId"/>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                            <div class="form-group" style="margin:0;">
+                                <label>Diagnosis</label>
+                                <input type="text" id="historyDiagnosis" placeholder="e.g. Malaria"/>
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>Treatment</label>
+                                <input type="text" id="historyTreatment" placeholder="e.g. Coartem 6-dose"/>
+                            </div>
                         </div>
-                        <div class="prescription-details">
-                            <p><strong>Dosage:</strong> 1-2 tablets as needed</p>
-                            <p><strong>Max Dose:</strong> 8 tablets per day</p>
-                            <p><strong>Prescribed by:</strong> Dr. Chioma Adeyemi</p>
-                            <p><strong>Date:</strong> Jan 5, 2024</p>
-                            <p><strong>Instructions:</strong> For pain or fever</p>
-                        </div>
+                        <button id="addHistoryBtn" class="btn-primary btn-small">Add Entry</button>
                     </div>
-                    <h2>Past Prescriptions</h2>
-                    <div class="prescription-card">
-                        <div class="prescription-header">
-                            <h3>Ibuprofen 400mg</h3>
-                            <span class="status-badge">Completed</span>
+
+                    <!-- Add Prescription -->
+                    <div>
+                        <h3 style="color:#2E7D32;margin-bottom:1rem;">Write Prescription</h3>
+                        <div id="prescriptionError" style="display:none;background:#ffebee;color:#c62828;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+                        <div id="prescriptionSuccess" style="display:none;background:#e8f5e9;color:#2e7d32;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                            <div class="form-group" style="margin:0;">
+                                <label>Medication</label>
+                                <input type="text" id="prescMedication" placeholder="e.g. Amoxicillin 500mg"/>
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>Dosage</label>
+                                <input type="text" id="prescDosage" placeholder="e.g. 1 capsule"/>
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>Frequency</label>
+                                <input type="text" id="prescFrequency" placeholder="e.g. 3x daily"/>
+                            </div>
                         </div>
-                        <div class="prescription-details">
-                            <p><strong>Dosage:</strong> 1 tablet, 2 times daily</p>
-                            <p><strong>Duration:</strong> 5 days</p>
-                            <p><strong>Prescribed by:</strong> Dr. Adeyemi</p>
-                            <p><strong>Completed:</strong> Dec 28, 2023</p>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                            <div class="form-group" style="margin:0;">
+                                <label>Start Date</label>
+                                <input type="date" id="prescStartDate"/>
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>End Date</label>
+                                <input type="date" id="prescEndDate"/>
+                            </div>
                         </div>
+                        <button id="addPrescriptionBtn" class="btn-primary btn-small">Write Prescription</button>
                     </div>
                 </div>
             </section>
@@ -1480,43 +1420,101 @@ body {
             <section id="consultations" class="dashboard-section">
                 <div class="section-header">
                     <h1>Consultations</h1>
-                    <button class="btn-primary" id="requestConsultationBtn">Request Consultation</button>
                 </div>
-                <div class="consultations-list">
-                    <div class="consultation-card">
-                        <div class="consultation-header">
-                            <h3>General Check-up</h3>
-                            <span class="status-badge status-completed">Completed</span>
+                <div class="consultations-list" id="consultationsList">
+                    <p style="color:#888;padding:1rem;">Loading consultations...</p>
+                </div>
+
+                <!-- Chat Panel -->
+                <div id="chatPanel" style="display:none;background:white;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);margin-top:2rem;overflow:hidden;">
+                    <div style="background:#2E7D32;color:white;padding:1rem;display:flex;justify-content:space-between;align-items:center;">
+                        <h3 id="chatTitle">Consultation Chat</h3>
+                        <button id="closeChatBtn" style="background:none;border:none;color:white;font-size:1.5rem;cursor:pointer;">✕</button>
+                    </div>
+                    <div id="chatMessages" style="height:350px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;background:#f9f9f9;"></div>
+                    <div style="padding:1rem;border-top:1px solid #eee;display:flex;gap:0.75rem;">
+                        <input type="text" id="chatInput" placeholder="Type a message..." style="flex:1;padding:0.75rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;"/>
+                        <button id="sendMessageBtn" class="btn-primary btn-small">Send</button>
+                    </div>
+                    <div id="typingIndicator" style="padding:0.5rem 1rem;font-size:0.85rem;color:#888;display:none;">Patient is typing...</div>
+                </div>
+            </section>
+
+            <!-- REFERRALS -->
+            <section id="referrals" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Referrals</h1>
+                    <button class="btn-primary" id="newReferralBtn">+ New Referral</button>
+                </div>
+
+                <!-- Create Referral Form -->
+                <div id="referralForm" style="display:none;background:white;padding:1.5rem;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);margin-bottom:2rem;">
+                    <h3 style="margin-bottom:1rem;color:#2E7D32;">Create New Referral</h3>
+                    <div id="referralError" style="display:none;background:#ffebee;color:#c62828;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+                    <div id="referralSuccess" style="display:none;background:#e8f5e9;color:#2e7d32;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+                    <div class="form-group">
+                        <label>Select Patient</label>
+                        <select id="referralPatientSelect">
+                            <option value="">Loading patients...</option>
+                        </select>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                        <div class="form-group">
+                            <label>Facility Name</label>
+                            <input type="text" id="referralFacility" placeholder="e.g. LUTH, National Hospital"/>
                         </div>
-                        <div class="consultation-details">
-                            <p><strong>Doctor:</strong> Dr. Chioma Adeyemi</p>
-                            <p><strong>Date:</strong> January 8, 2024</p>
-                            <p><strong>Type:</strong> Video Consultation</p>
-                            <p><strong>Duration:</strong> 25 minutes</p>
-                            <p><strong>Diagnosis:</strong> Upper respiratory infection</p>
-                        </div>
-                        <div class="consultation-actions">
-                            <button class="btn-secondary btn-small">View Notes</button>
-                            <button class="btn-secondary btn-small">Download Report</button>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" id="referralDepartment" placeholder="e.g. Cardiology"/>
                         </div>
                     </div>
-                    <div class="consultation-card">
-                        <div class="consultation-header">
-                            <h3>Follow-up - Hypertension</h3>
-                            <span class="status-badge status-completed">Completed</span>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                        <div class="form-group">
+                            <label>Facility Address</label>
+                            <input type="text" id="referralAddress" placeholder="Address"/>
                         </div>
-                        <div class="consultation-details">
-                            <p><strong>Doctor:</strong> Dr. Ibrahim Okonkwo</p>
-                            <p><strong>Date:</strong> December 20, 2023</p>
-                            <p><strong>Type:</strong> In-Person</p>
-                            <p><strong>Duration:</strong> 30 minutes</p>
-                            <p><strong>Diagnosis:</strong> Blood pressure under control</p>
-                        </div>
-                        <div class="consultation-actions">
-                            <button class="btn-secondary btn-small">View Notes</button>
-                            <button class="btn-secondary btn-small">Download Report</button>
+                        <div class="form-group">
+                            <label>Contact Phone</label>
+                            <input type="text" id="referralPhone" placeholder="e.g. 08012345678"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>Reason for Referral</label>
+                        <input type="text" id="referralReason" placeholder="e.g. Suspected cardiac arrhythmia"/>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                        <div class="form-group">
+                            <label>Diagnosis</label>
+                            <input type="text" id="referralDiagnosis" placeholder="Current diagnosis"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Urgency</label>
+                            <select id="referralUrgency">
+                                <option value="routine">Routine</option>
+                                <option value="urgent">Urgent</option>
+                                <option value="emergency">Emergency</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <input type="text" id="referralNotes" placeholder="Any additional information..."/>
+                    </div>
+                    <div style="display:flex;gap:1rem;">
+                        <button id="submitReferralBtn" class="btn-primary">Submit Referral</button>
+                        <button id="cancelReferralBtn" class="btn-secondary">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Patient</th><th>Facility</th><th>Reason</th><th>Urgency</th><th>Status</th><th>Date</th></tr>
+                        </thead>
+                        <tbody id="referralsBody">
+                            <tr><td colspan="6" style="text-align:center;padding:2rem;color:#888;">Loading referrals...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
@@ -1528,45 +1526,20 @@ body {
                         <h2>Personal Information</h2>
                         <form id="profileForm" class="profile-form">
                             <div class="form-row">
-                                <div class="form-group">
-                                    <label for="profileFirstName">First Name</label>
-                                    <input type="text" id="profileFirstName" value="John">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profileLastName">Last Name</label>
-                                    <input type="text" id="profileLastName" value="Doe">
-                                </div>
+                                <div class="form-group"><label>First Name</label><input type="text" id="profileFirstName"/></div>
+                                <div class="form-group"><label>Last Name</label><input type="text" id="profileLastName"/></div>
                             </div>
-                            <div class="form-group">
-                                <label for="profileEmail">Email</label>
-                                <input type="email" id="profileEmail" value="john.doe@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="profilePhone">Phone</label>
-                                <input type="tel" id="profilePhone" value="08012345678">
-                            </div>
-                            <div class="form-group">
-                                <label for="profileAddress">Address</label>
-                                <input type="text" id="profileAddress" value="123 Main Street, Ikeja">
-                            </div>
+                            <div class="form-group"><label>Email</label><input type="email" id="profileEmail"/></div>
+                            <div class="form-group"><label>Phone</label><input type="tel" id="profilePhone"/></div>
                             <button type="submit" class="btn-primary">Update Profile</button>
                         </form>
                     </div>
                     <div class="profile-card">
                         <h2>Change Password</h2>
                         <form id="passwordForm" class="profile-form">
-                            <div class="form-group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" id="currentPassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmNewPassword">Confirm New Password</label>
-                                <input type="password" id="confirmNewPassword">
-                            </div>
+                            <div class="form-group"><label>Current Password</label><input type="password" id="currentPassword"/></div>
+                            <div class="form-group"><label>New Password</label><input type="password" id="newPassword"/></div>
+                            <div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmNewPassword"/></div>
                             <button type="submit" class="btn-primary">Change Password</button>
                         </form>
                     </div>
@@ -1576,37 +1549,483 @@ body {
         </main>
     </div>
 
+    <!-- ① Socket.io CDN -->
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <!-- ② app.js -->
+    <script src="js/app.js"></script>
+    <!-- ③ Dashboard logic -->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var sidebarItems      = document.querySelectorAll('.sidebar-item');
-        var dashboardSections = document.querySelectorAll('.dashboard-section');
+    // ── Socket.io setup ─────────────────────────────────
+    const SOCKET_URL = 'https://ruralcare360-pcu.onrender.com';
+    let socket = null;
+    let activeConsultationId = null;
+    let currentUserId = null;
 
-        sidebarItems.forEach(function (item) {
+    document.addEventListener('DOMContentLoaded', async function () {
+
+        // ── Sidebar navigation ──────────────────────────
+        document.querySelectorAll('.sidebar-item').forEach(function (item) {
             item.addEventListener('click', function () {
-                var sectionId = item.getAttribute('data-section');
-
-                sidebarItems.forEach(function (i) { i.classList.remove('active'); });
-                dashboardSections.forEach(function (s) { s.classList.remove('active'); });
-
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.dashboard-section').forEach(s => s.classList.remove('active'));
                 item.classList.add('active');
-                var section = document.getElementById(sectionId);
-                if (section) { section.classList.add('active'); }
-
-                var main = document.querySelector('.dashboard-main');
-                if (main) { main.scrollTop = 0; }
+                const section = document.getElementById(item.getAttribute('data-section'));
+                if (section) section.classList.add('active');
+                document.querySelector('.dashboard-main').scrollTop = 0;
             });
         });
 
-        var logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function () {
-                if (confirm('Are you sure you want to logout?')) {
-                    window.location.href = 'index.html';
-                }
+        // ── Logout ──────────────────────────────────────
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to logout?')) {
+                if (socket) socket.disconnect();
+                removeAuthToken();
+                localStorage.removeItem('userType');
+                localStorage.removeItem('userData');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ── Auth check ──────────────────────────────────
+        if (!requireAuth(['healthworker'])) return;
+
+        const user = getUserData();
+        currentUserId = user.id;
+
+        // ── Greet ───────────────────────────────────────
+        const greeting = document.getElementById('userGreeting');
+        if (greeting) greeting.textContent = 'Welcome, Dr. ' + user.fullName;
+
+        // ── Populate profile ────────────────────────────
+        const nameParts = (user.fullName || '').split(' ');
+        const el = id => document.getElementById(id);
+        if (el('profileFirstName')) el('profileFirstName').value = nameParts[0] || '';
+        if (el('profileLastName'))  el('profileLastName').value  = nameParts.slice(1).join(' ') || '';
+        if (el('profileEmail'))     el('profileEmail').value     = user.email || '';
+
+        // ── Load assigned appointments ──────────────────
+        try {
+            const data         = await apiRequest('/appointments/assigned');
+            const appointments = data.appointments || [];
+
+            if (el('statAppointments')) el('statAppointments').textContent = appointments.length;
+
+            // Activity list on overview
+            const activityList = el('activityList');
+            if (activityList) {
+                activityList.innerHTML = appointments.length === 0
+                    ? '<p style="color:#888;padding:1rem;">No appointments assigned yet.</p>'
+                    : appointments.slice(0, 5).map(a => `
+                        <div class="activity-item">
+                            <div class="activity-icon">📅</div>
+                            <div class="activity-details">
+                                <h4>${a.patient?.user?.fullName || 'Patient'}</h4>
+                                <p>${a.reason}</p>
+                                <span class="activity-time">${new Date(a.date).toLocaleDateString()} at ${a.time} — <strong>${a.status}</strong></span>
+                            </div>
+                        </div>`).join('');
+            }
+
+            // Appointments table
+            const appointmentsBody = el('appointmentsBody');
+            if (appointmentsBody) {
+                appointmentsBody.innerHTML = appointments.length === 0
+                    ? '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#888;">No appointments assigned</td></tr>'
+                    : appointments.map(a => `
+                        <tr>
+                            <td>${a.patient?.user?.fullName || 'N/A'}</td>
+                            <td>${new Date(a.date).toLocaleDateString()}</td>
+                            <td>${a.time}</td>
+                            <td>${a.type}</td>
+                            <td>${a.reason}</td>
+                            <td><span class="status-badge status-${a.status}">${a.status}</span></td>
+                            <td style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                <button onclick="openStatusModal('${a._id}')"
+                                    style="background:#1976D2;color:white;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:0.8rem;">
+                                    Update
+                                </button>
+                                ${a.status === 'confirmed' ? `
+                                <button onclick="startConsultation('${a._id}', '${a.patient?.user?.fullName || 'Patient'}')"
+                                    style="background:#2E7D32;color:white;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:0.8rem;">
+                                    Start Chat
+                                </button>` : ''}
+                            </td>
+                        </tr>`).join('');
+            }
+        } catch (err) {
+            console.error('Appointments error:', err);
+        }
+
+        // ── Load all patients ───────────────────────────
+        let allPatients = [];
+        try {
+            const data  = await apiRequest('/patients');
+            allPatients = data.patients || [];
+
+            if (el('statPatients')) el('statPatients').textContent = allPatients.length;
+
+            renderPatients(allPatients);
+
+            // Populate referral patient dropdown
+            const referralSelect = el('referralPatientSelect');
+            if (referralSelect) {
+                referralSelect.innerHTML = '<option value="">Select a patient</option>' +
+                    allPatients.map(p => `<option value="${p._id}">${p.user?.fullName || 'Unknown'}</option>`).join('');
+            }
+        } catch (err) {
+            console.error('Patients error:', err);
+        }
+
+        // Patient search
+        el('patientSearch').addEventListener('input', function () {
+            const q = this.value.toLowerCase();
+            renderPatients(allPatients.filter(p =>
+                (p.user?.fullName || '').toLowerCase().includes(q) ||
+                (p.user?.email || '').toLowerCase().includes(q)
+            ));
+        });
+
+        // ── Load consultations ──────────────────────────
+        try {
+            const data         = await apiRequest('/consultations/me');
+            const consultations = data.consultations || [];
+
+            const active = consultations.filter(c => c.status === 'active').length;
+            if (el('statConsultations')) el('statConsultations').textContent = active;
+
+            const list = el('consultationsList');
+            if (list) {
+                list.innerHTML = consultations.length === 0
+                    ? '<p style="color:#888;padding:1rem;">No consultations yet.</p>'
+                    : consultations.map(c => `
+                        <div class="consultation-card">
+                            <div class="consultation-header">
+                                <h3>${c.patient?.fullName || 'Patient'}</h3>
+                                <span class="status-badge status-${c.status}">${c.status}</span>
+                            </div>
+                            <div class="consultation-details">
+                                <p><strong>Started:</strong> ${c.startedAt ? new Date(c.startedAt).toLocaleDateString() : 'N/A'}</p>
+                                <p><strong>Ended:</strong> ${c.endedAt ? new Date(c.endedAt).toLocaleDateString() : 'Ongoing'}</p>
+                                ${c.summary ? `<p><strong>Summary:</strong> ${c.summary}</p>` : ''}
+                            </div>
+                            <div class="consultation-actions">
+                                ${c.status === 'active' ? `
+                                    <button onclick="openChat('${c._id}', '${c.patient?.fullName || 'Patient'}')"
+                                        class="btn-primary btn-small">Open Chat</button>
+                                    <button onclick="endConsultation('${c._id}')"
+                                        class="btn-danger btn-small">End Consultation</button>
+                                ` : ''}
+                            </div>
+                        </div>`).join('');
+            }
+        } catch (err) {
+            console.error('Consultations error:', err);
+        }
+
+        // ── Load referrals ──────────────────────────────
+        try {
+            const data    = await apiRequest('/referrals/my-created');
+            const referrals = data.referrals || [];
+
+            if (el('statReferrals')) el('statReferrals').textContent = referrals.length;
+
+            const referralsBody = el('referralsBody');
+            if (referralsBody) {
+                referralsBody.innerHTML = referrals.length === 0
+                    ? '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#888;">No referrals created yet</td></tr>'
+                    : referrals.map(r => `
+                        <tr>
+                            <td>${r.patient?.user?.fullName || 'N/A'}</td>
+                            <td>${r.referredTo?.facilityName || 'N/A'}</td>
+                            <td>${r.reason}</td>
+                            <td><span class="badge badge-${r.urgency === 'emergency' ? 'inactive' : r.urgency === 'urgent' ? 'warning' : 'active'}">${r.urgency}</span></td>
+                            <td><span class="status-badge status-${r.status}">${r.status}</span></td>
+                            <td>${new Date(r.createdAt).toLocaleDateString()}</td>
+                        </tr>`).join('');
+            }
+        } catch (err) {
+            console.error('Referrals error:', err);
+        }
+
+        // ── Appointment status modal ────────────────────
+        el('cancelStatusBtn').addEventListener('click', () => { el('statusModal').style.display = 'none'; });
+
+        el('confirmStatusBtn').addEventListener('click', async function () {
+            const id     = el('statusAppointmentId').value;
+            const status = el('newStatus').value;
+            const notes  = el('statusNotes').value;
+            try {
+                await apiRequest('/appointments/' + id + '/status', 'PUT', { status, notes });
+                showMessage('Appointment updated to ' + status, 'success');
+                el('statusModal').style.display = 'none';
+                setTimeout(() => window.location.reload(), 1200);
+            } catch (err) {
+                showMessage('Failed to update appointment', 'error');
+            }
+        });
+
+        // ── Patient detail panel ────────────────────────
+        el('closeDetailBtn').addEventListener('click', () => { el('patientDetail').style.display = 'none'; });
+
+        el('addHistoryBtn').addEventListener('click', async function () {
+            const pid       = el('detailPatientId').value;
+            const diagnosis = el('historyDiagnosis').value.trim();
+            const treatment = el('historyTreatment').value.trim();
+            el('historyError').style.display   = 'none';
+            el('historySuccess').style.display = 'none';
+
+            if (!diagnosis || !treatment) {
+                el('historyError').textContent  = 'Both diagnosis and treatment are required.';
+                el('historyError').style.display = 'block';
+                return;
+            }
+            try {
+                await apiRequest('/patients/' + pid + '/history', 'POST', { diagnosis, treatment });
+                el('historySuccess').textContent  = '✅ Medical history entry added.';
+                el('historySuccess').style.display = 'block';
+                el('historyDiagnosis').value = '';
+                el('historyTreatment').value = '';
+            } catch (err) {
+                el('historyError').textContent  = err.message || 'Failed to add history.';
+                el('historyError').style.display = 'block';
+            }
+        });
+
+        el('addPrescriptionBtn').addEventListener('click', async function () {
+            const pid = el('detailPatientId').value;
+            el('prescriptionError').style.display   = 'none';
+            el('prescriptionSuccess').style.display = 'none';
+
+            const medication = el('prescMedication').value.trim();
+            const dosage     = el('prescDosage').value.trim();
+            const frequency  = el('prescFrequency').value.trim();
+
+            if (!medication || !dosage || !frequency) {
+                el('prescriptionError').textContent  = 'Medication, dosage and frequency are required.';
+                el('prescriptionError').style.display = 'block';
+                return;
+            }
+            try {
+                await apiRequest('/patients/' + pid + '/prescription', 'POST', {
+                    medication,
+                    dosage,
+                    frequency,
+                    startDate: el('prescStartDate').value || undefined,
+                    endDate:   el('prescEndDate').value   || undefined
+                });
+                el('prescriptionSuccess').textContent  = '✅ Prescription written successfully.';
+                el('prescriptionSuccess').style.display = 'block';
+                el('prescMedication').value  = '';
+                el('prescDosage').value      = '';
+                el('prescFrequency').value   = '';
+                el('prescStartDate').value   = '';
+                el('prescEndDate').value     = '';
+            } catch (err) {
+                el('prescriptionError').textContent  = err.message || 'Failed to write prescription.';
+                el('prescriptionError').style.display = 'block';
+            }
+        });
+
+        // ── Referral form ───────────────────────────────
+        el('newReferralBtn').addEventListener('click', () => {
+            el('referralForm').style.display = el('referralForm').style.display === 'none' ? 'block' : 'none';
+        });
+        el('cancelReferralBtn').addEventListener('click', () => { el('referralForm').style.display = 'none'; });
+
+        el('submitReferralBtn').addEventListener('click', async function () {
+            el('referralError').style.display   = 'none';
+            el('referralSuccess').style.display = 'none';
+
+            const patient = el('referralPatientSelect').value;
+            const reason  = el('referralReason').value.trim();
+            const facility = el('referralFacility').value.trim();
+
+            if (!patient || !reason || !facility) {
+                el('referralError').textContent  = 'Patient, facility name, and reason are required.';
+                el('referralError').style.display = 'block';
+                return;
+            }
+            try {
+                await apiRequest('/referrals', 'POST', {
+                    patient,
+                    reason,
+                    diagnosis:  el('referralDiagnosis').value,
+                    urgency:    el('referralUrgency').value,
+                    notes:      el('referralNotes').value,
+                    referredTo: {
+                        facilityName:    facility,
+                        facilityAddress: el('referralAddress').value,
+                        department:      el('referralDepartment').value,
+                        contactPhone:    el('referralPhone').value
+                    }
+                });
+                el('referralSuccess').textContent  = '✅ Referral created successfully!';
+                el('referralSuccess').style.display = 'block';
+                setTimeout(() => { el('referralForm').style.display = 'none'; window.location.reload(); }, 1500);
+            } catch (err) {
+                el('referralError').textContent  = err.message || 'Failed to create referral.';
+                el('referralError').style.display = 'block';
+            }
+        });
+
+        // ── Chat panel ──────────────────────────────────
+        el('closeChatBtn').addEventListener('click', () => {
+            el('chatPanel').style.display = 'none';
+            if (socket && activeConsultationId) socket.emit('leaveConsultation', activeConsultationId);
+            activeConsultationId = null;
+        });
+
+        el('sendMessageBtn').addEventListener('click', sendMessage);
+        el('chatInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') sendMessage();
+            else if (socket && activeConsultationId) {
+                socket.emit('typing', { consultationId: activeConsultationId, userId: currentUserId });
+            }
+        });
+
+    }); // end DOMContentLoaded
+
+    // ── Render patients table ───────────────────────────
+    function renderPatients(patients) {
+        const body = document.getElementById('patientsBody');
+        if (!body) return;
+        body.innerHTML = patients.length === 0
+            ? '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#888;">No patients found</td></tr>'
+            : patients.map(p => `
+                <tr>
+                    <td>${p.user?.fullName || 'N/A'}</td>
+                    <td>${p.user?.email || 'N/A'}</td>
+                    <td>${p.user?.phone || 'N/A'}</td>
+                    <td>${p.bloodGroup || 'N/A'}</td>
+                    <td>${p.genotype || 'N/A'}</td>
+                    <td>${p.nhisId || 'N/A'}</td>
+                    <td>
+                        <button onclick="viewPatient('${p._id}')"
+                            style="background:#1976D2;color:white;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:0.8rem;">
+                            View
+                        </button>
+                    </td>
+                </tr>`).join('');
+    }
+
+    // ── View patient detail ─────────────────────────────
+    async function viewPatient(patientId) {
+        try {
+            const data    = await apiRequest('/patients/' + patientId);
+            const patient = data.patient;
+            const el      = id => document.getElementById(id);
+
+            el('detailPatientId').value         = patient._id;
+            el('detailPatientName').textContent = patient.user?.fullName || 'Patient';
+            el('detailBloodGroup').textContent  = patient.bloodGroup || 'Not recorded';
+            el('detailGenotype').textContent    = patient.genotype   || 'Not recorded';
+            el('detailAllergies').textContent   = patient.allergies?.join(', ') || 'None';
+            el('detailConditions').textContent  = patient.chronicConditions?.join(', ') || 'None';
+            el('detailPhone').textContent       = patient.user?.phone || 'N/A';
+            el('detailAddress').textContent     = patient.address?.street ? `${patient.address.street}, ${patient.address.lga}, ${patient.address.state}` : 'N/A';
+            el('detailKin').textContent         = patient.nextOfKin?.name ? `${patient.nextOfKin.name} (${patient.nextOfKin.relationship}) — ${patient.nextOfKin.phone}` : 'N/A';
+            el('detailNhis').textContent        = patient.nhisId || 'N/A';
+
+            el('patientDetail').style.display = 'block';
+            el('patientDetail').scrollIntoView({ behavior: 'smooth' });
+        } catch (err) {
+            showMessage('Failed to load patient details', 'error');
+        }
+    }
+
+    // ── Open status modal ───────────────────────────────
+    function openStatusModal(appointmentId) {
+        document.getElementById('statusAppointmentId').value = appointmentId;
+        document.getElementById('statusNotes').value         = '';
+        document.getElementById('statusModal').style.display = 'block';
+    }
+
+    // ── Start consultation from appointments tab ─────────
+    async function startConsultation(appointmentId, patientName) {
+        try {
+            const data         = await apiRequest('/consultations/start/' + appointmentId, 'POST');
+            const consultation = data.consultation;
+            showMessage('Consultation started!', 'success');
+            openChat(consultation._id, patientName);
+        } catch (err) {
+            showMessage(err.message || 'Failed to start consultation', 'error');
+        }
+    }
+
+    // ── Open chat panel ─────────────────────────────────
+    function openChat(consultationId, patientName) {
+        activeConsultationId = consultationId;
+        document.getElementById('chatTitle').textContent  = 'Chat with ' + patientName;
+        document.getElementById('chatPanel').style.display = 'block';
+        document.getElementById('chatMessages').innerHTML = '';
+        document.getElementById('chatPanel').scrollIntoView({ behavior: 'smooth' });
+
+        // Connect Socket.io
+        if (!socket) {
+            socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
+
+            socket.on('connect', () => { console.log('Socket connected'); });
+
+            socket.on('receiveMessage', function (data) {
+                appendMessage(data.message, data.senderId === currentUserId ? 'me' : 'them');
+            });
+
+            socket.on('userTyping', function () {
+                const indicator = document.getElementById('typingIndicator');
+                indicator.style.display = 'block';
+                setTimeout(() => { indicator.style.display = 'none'; }, 2000);
             });
         }
-    });
+
+        socket.emit('joinConsultation', consultationId);
+    }
+
+    // ── Send message ────────────────────────────────────
+    function sendMessage() {
+        const input   = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (!message || !activeConsultationId || !socket) return;
+
+        socket.emit('sendMessage', {
+            consultationId: activeConsultationId,
+            senderId:       currentUserId,
+            message
+        });
+
+        input.value = '';
+    }
+
+    // ── Append message to chat ──────────────────────────
+    function appendMessage(message, sender) {
+        const chatMessages = document.getElementById('chatMessages');
+        const div          = document.createElement('div');
+        div.style.cssText  = `
+            max-width:70%;
+            padding:0.6rem 1rem;
+            border-radius:12px;
+            font-size:0.95rem;
+            align-self:${sender === 'me' ? 'flex-end' : 'flex-start'};
+            background:${sender === 'me' ? '#2E7D32' : '#e0e0e0'};
+            color:${sender === 'me' ? 'white' : '#212121'};
+        `;
+        div.textContent = message;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // ── End consultation ────────────────────────────────
+    async function endConsultation(consultationId) {
+        const summary = prompt('Enter a brief consultation summary (optional):') || '';
+        if (!confirm('End this consultation?')) return;
+        try {
+            await apiRequest('/consultations/' + consultationId + '/end', 'PUT', { summary });
+            showMessage('Consultation ended.', 'success');
+            document.getElementById('chatPanel').style.display = 'none';
+            setTimeout(() => window.location.reload(), 1200);
+        } catch (err) {
+            showMessage('Failed to end consultation', 'error');
+        }
+    }
     </script>
-<script src="js/app.js"></script>
 </body>
 </html>

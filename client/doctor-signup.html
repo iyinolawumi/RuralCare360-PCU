@@ -4,7 +4,1223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Registration - RuralCare360</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+/* ===================================
+   RuralCare360 - Main Stylesheet
+   =================================== */
+
+/* === RESET & BASE STYLES === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette */
+    --primary-color: #2E7D32;
+    --primary-dark: #1B5E20;
+    --primary-light: #4CAF50;
+    --secondary-color: #1976D2;
+    --secondary-dark: #0D47A1;
+    --secondary-light: #42A5F5;
+    --accent-color: #FF6F00;
+    --success-color: #43A047;
+    --warning-color: #FB8C00;
+    --error-color: #E53935;
+    --info-color: #039BE5;
+    
+    /* Neutral Colors */
+    --white: #FFFFFF;
+    --gray-50: #FAFAFA;
+    --gray-100: #F5F5F5;
+    --gray-200: #EEEEEE;
+    --gray-300: #E0E0E0;
+    --gray-400: #BDBDBD;
+    --gray-500: #9E9E9E;
+    --gray-600: #757575;
+    --gray-700: #616161;
+    --gray-800: #424242;
+    --gray-900: #212121;
+    
+    /* Typography */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 16px;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Borders */
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    --border-radius-lg: 12px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--gray-900);
+    background-color: var(--gray-50);
+}
+
+/* === CONTAINER === */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+/* === NAVBAR === */
+.navbar {
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: var(--spacing-md) 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.nav-brand a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: var(--white-700);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+    color: var(--primary-color);
+}
+
+.navbar-dashboard {
+    background-color: var(--primary-color);
+}
+
+.navbar-dashboard .nav-brand h2 {
+    color: var(--white);
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: var(--white);
+}
+
+/* === BUTTONS === */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    padding: 0.625rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+    background-color: var(--error-color);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background-color: #C62828;
+    transform: translateY(-2px);
+}
+
+.btn-large {
+    padding: 0.875rem 2rem;
+    font-size: 1.125rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* === HERO SECTION === */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: var(--spacing-2xl) 0;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xl);
+    opacity: 0.95;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* === FEATURES SECTION === */
+.features {
+    padding: var(--spacing-2xl) 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-xl);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.feature-card {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+}
+
+.feature-card p {
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+/* === ABOUT SECTION === */
+.about {
+    background-color: var(--gray-100);
+    padding: var(--spacing-2xl) 0;
+}
+
+.about-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--gray-700);
+}
+
+/* === FOOTER === */
+.footer {
+    background-color: var(--gray-900);
+    color: var(--white);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+.footer p {
+    margin: var(--spacing-sm) 0;
+    opacity: 0.8;
+}
+
+/* === AUTH PAGES === */
+.auth-container {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) 0;
+}
+
+.auth-card {
+    background-color: var(--white);
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-width: 450px;
+}
+
+.auth-card-wide {
+    max-width: 700px;
+}
+
+.auth-card h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 2rem;
+    text-align: center;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xl);
+}
+
+.auth-form {
+    margin-top: var(--spacing-lg);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--gray-700);
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+}
+
+.link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--gray-200);
+}
+
+/* === DASHBOARD LAYOUT === */
+.dashboard-container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--white);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg) 0;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.sidebar-item:hover {
+    background-color: var(--gray-100);
+}
+
+.sidebar-item.active {
+    background-color: var(--primary-light);
+    color: var(--white);
+    border-left: 4px solid var(--primary-dark);
+}
+
+.sidebar-item .icon {
+    font-size: 1.5rem;
+}
+
+.dashboard-main {
+    flex: 1;
+    padding: var(--spacing-xl);
+    background-color: var(--gray-50);
+    overflow-y: auto;
+}
+
+.dashboard-section {
+    display: none;
+}
+
+.dashboard-section.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* === STATS CARDS === */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.stat-card {
+    background-color: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    padding: var(--spacing-md);
+    background-color: var(--gray-100);
+    border-radius: var(--border-radius);
+}
+
+.stat-info h3 {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* === ACTIVITY LIST === */
+.recent-activity {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.recent-activity h2 {
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray-900);
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.activity-item {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-left: 3px solid var(--primary-color);
+    background-color: var(--gray-50);
+    border-radius: var(--border-radius);
+}
+
+.activity-icon {
+    font-size: 2rem;
+}
+
+.activity-details h4 {
+    margin-bottom: var(--spacing-xs);
+    color: var(--gray-900);
+}
+
+.activity-details p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+.activity-time {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-top: var(--spacing-xs);
+}
+
+/* === APPOINTMENT CARDS === */
+.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.appointment-card {
+    background-color: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.appointment-card.upcoming {
+    border-left: 4px solid var(--primary-color);
+}
+
+.appointment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.appointment-header h3 {
+    color: var(--gray-900);
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-upcoming {
+    background-color: var(--info-color);
+    color: var(--white);
+}
+
+.status-scheduled {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.status-completed {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.status-active {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.appointment-details p {
+    margin: var(--spacing-sm) 0;
+    color: var(--gray-700);
+}
+
+.appointment-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+/* === HEALTH RECORDS === */
+.records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.record-card {
+    background-color: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.record-card h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.record-content p {
+    margin: var(--spacing-sm) 0;
+    color: var(--gray-700);
+}
+
+.record-date {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--gray-200);
+}
+
+/* === PRESCRIPTIONS === */
+.prescriptions-container h2 {
+    margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+    color: var(--gray-900);
+}
+
+.prescription-card {
+    background-color: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.prescription-card.active {
+    border-left: 4px solid var(--success-color);
+}
+
+.prescription-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.prescription-details p {
+    margin: var(--spacing-sm) 0;
+    color: var(--gray-700);
+}
+
+.prescription-progress {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--gray-200);
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--gray-200);
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    margin-top: var(--spacing-sm);
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--success-color);
+    transition: width 0.3s ease;
+}
+
+/* === CONSULTATIONS === */
+.consultations-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.consultation-card {
+    background-color: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.consultation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.consultation-details p {
+    margin: var(--spacing-sm) 0;
+    color: var(--gray-700);
+}
+
+.consultation-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+/* === PROFILE === */
+.profile-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.profile-card {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.profile-card h2 {
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+    }
+    
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .sidebar-item {
+        flex-direction: column;
+        text-align: center;
+        min-width: 100px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .appointment-actions,
+    .consultation-actions {
+        flex-direction: column;
+    }
+    
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .auth-card {
+        padding: var(--spacing-lg);
+    }
+    
+    .dashboard-main {
+        padding: var(--spacing-md);
+    }
+}
+
+/* === ADMIN DASHBOARD STYLES === */
+.admin-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.quick-stats {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.quick-stats h2 {
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray-900);
+}
+
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--gray-50);
+    border-radius: var(--border-radius);
+}
+
+.stat-label {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+/* === DATA TABLES === */
+.table-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.filter-select {
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    min-width: 200px;
+}
+
+.data-table {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+}
+
+.data-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead {
+    background-color: var(--gray-100);
+}
+
+.data-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.data-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-700);
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--gray-50);
+}
+
+/* === BADGES === */
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.badge-doctor {
+    background-color: #E3F2FD;
+    color: #1976D2;
+}
+
+.badge-patient {
+    background-color: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.badge-active {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.badge-inactive {
+    background-color: #FFEBEE;
+    color: #C62828;
+}
+
+.badge-pending {
+    background-color: #FFF3E0;
+    color: #F57C00;
+}
+
+.badge-completed {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.badge-live {
+    background-color: #FFEBEE;
+    color: #C62828;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* === REPORTS === */
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.report-card {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.report-card h3 {
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-sm);
+}
+
+.report-card p {
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* === SETTINGS === */
+.settings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.settings-card {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.settings-card h2 {
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* === RESPONSIVE ADMIN STYLES === */
+@media (max-width: 1024px) {
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-controls {
+        flex-direction: column;
+    }
+    
+    .filter-select {
+        width: 100%;
+    }
+    
+    .data-table {
+        font-size: 0.875rem;
+    }
+    
+    .reports-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .settings-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* === UTILITY CLASSES === */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.mt-1 { margin-top: var(--spacing-md); }
+.mt-2 { margin-top: var(--spacing-lg); }
+.mb-1 { margin-bottom: var(--spacing-md); }
+.mb-2 { margin-bottom: var(--spacing-lg); }
+.hidden { display: none; }
+.visible { display: block; }
+
+/* === ADMIN DASHBOARD STYLES === */
+.table-container {
+    background-color: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table thead {
+    background-color: var(--gray-100);
+}
+
+.data-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.data-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-700);
+}
+
+.data-table tr:hover {
+    background-color: var(--gray-50);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-active {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.badge-inactive {
+    background-color: var(--gray-400);
+    color: var(--white);
+}
+
+.badge-warning {
+    background-color: var(--warning-color);
+    color: var(--white);
+}
+
+.badge-doctor {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.badge-patient {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.badge-admin {
+    background-color: var(--error-color);
+    color: var(--white);
+}
+
+.search-input {
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    width: 300px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Admin cards with action buttons */
+.record-card .appointment-actions {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--gray-200);
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: scroll;
+    }
+    
+    .data-table {
+        font-size: 0.8rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: var(--spacing-sm);
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+}
+
+    </style>
 </head>
 <body>
 
@@ -20,37 +1236,36 @@
         <div class="auth-card auth-card-wide">
             <h2>Doctor Registration</h2>
             <p class="auth-subtitle">Join our network of healthcare professionals</p>
-            
+
+            <div id="formError" style="display:none;background:#ffebee;color:#c62828;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+            <div id="formSuccess" style="display:none;background:#e8f5e9;color:#2e7d32;padding:1rem;border-radius:6px;margin-bottom:1rem;"></div>
+
             <form id="doctorSignupForm" class="auth-form">
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" required 
-                               placeholder="Enter first name">
+                        <input type="text" id="firstName" required placeholder="Enter first name"/>
                     </div>
-                    
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" required 
-                               placeholder="Enter last name">
+                        <input type="text" id="lastName" required placeholder="Enter last name"/>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required 
-                           placeholder="Enter your email">
+                    <input type="email" id="email" required placeholder="Enter your email"/>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required 
-                           placeholder="e.g., 08012345678">
+                    <input type="tel" id="phone" required placeholder="e.g. 08012345678"/>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="specialization">Specialization</label>
-                    <select id="specialization" name="specialization" required>
+                    <select id="specialization" required>
                         <option value="">Select specialization</option>
                         <option value="general">General Practitioner</option>
                         <option value="pediatrics">Pediatrics</option>
@@ -60,67 +1275,130 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="licenseNumber">Medical License Number</label>
-                    <input type="text" id="licenseNumber" name="licenseNumber" required 
-                           placeholder="Enter MDCN license number">
+                    <label for="licenseNumber">Medical License Number (MDCN)</label>
+                    <input type="text" id="licenseNumber" required placeholder="Enter MDCN license number"/>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="yearsOfExperience">Years of Experience</label>
-                    <input type="number" id="yearsOfExperience" name="yearsOfExperience" 
-                           required min="0" placeholder="Enter years of experience">
+                    <input type="number" id="yearsOfExperience" required min="0" placeholder="e.g. 5"/>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="hospitalAffiliation">Hospital/Clinic Affiliation</label>
-                    <input type="text" id="hospitalAffiliation" name="hospitalAffiliation" 
-                           placeholder="Current workplace (optional)">
+                    <label for="hospitalAffiliation">Hospital / Clinic Affiliation <span style="color:#888;font-size:0.85rem;">(optional)</span></label>
+                    <input type="text" id="hospitalAffiliation" placeholder="e.g. Lagos University Teaching Hospital"/>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="state">State</label>
-                        <input type="text" id="state" name="state" required 
-                               placeholder="e.g., Lagos">
+                        <input type="text" id="state" required placeholder="e.g. Lagos"/>
                     </div>
-                    
                     <div class="form-group">
                         <label for="lga">LGA</label>
-                        <input type="text" id="lga" name="lga" required 
-                               placeholder="Local Government Area">
+                        <input type="text" id="lga" required placeholder="Local Government Area"/>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required 
-                           placeholder="Create a strong password">
+                    <input type="password" id="password" required placeholder="Create a strong password (min 6 characters)"/>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required 
-                           placeholder="Re-enter your password">
+                    <input type="password" id="confirmPassword" required placeholder="Re-enter your password"/>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="checkbox-label">
-                        <input type="checkbox" name="terms" required>
+                        <input type="checkbox" id="terms" required/>
                         <span>I agree to the Terms of Service and Privacy Policy</span>
                     </label>
                 </div>
-                
-                <button type="submit" class="btn-primary btn-full">Create Account</button>
+
+                <button type="submit" class="btn-primary btn-full" id="submitBtn">Create Account</button>
             </form>
-            
+
             <div class="auth-footer">
-                <p>Already have an account? <a href="doctor-login.html" class="link">Login</a></p>
+                <p>Already have an account? <a href="doctor-login.html" class="link">Login here</a></p>
             </div>
         </div>
     </div>
 
     <script src="js/app.js"></script>
+    <script>
+    document.getElementById('doctorSignupForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const errorDiv   = document.getElementById('formError');
+        const successDiv = document.getElementById('formSuccess');
+        const submitBtn  = document.getElementById('submitBtn');
+        errorDiv.style.display   = 'none';
+        successDiv.style.display = 'none';
+
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName  = document.getElementById('lastName').value.trim();
+        const password  = document.getElementById('password').value;
+        const confirm   = document.getElementById('confirmPassword').value;
+
+        // ── Validation ──────────────────────────────────
+        if (!firstName || !lastName) {
+            errorDiv.textContent  = 'Please enter your full name.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        if (password.length < 6) {
+            errorDiv.textContent  = 'Password must be at least 6 characters.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        if (password !== confirm) {
+            errorDiv.textContent  = 'Passwords do not match.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        submitBtn.textContent = 'Creating account...';
+        submitBtn.disabled    = true;
+
+        try {
+            const response = await apiRequest('/auth/register', 'POST', {
+                fullName:           firstName + ' ' + lastName,
+                email:              document.getElementById('email').value.trim(),
+                phone:              document.getElementById('phone').value.trim(),
+                password,
+                role:               'healthworker',
+                specialization:     document.getElementById('specialization').value,
+                licenseNumber:      document.getElementById('licenseNumber').value.trim(),
+                yearsOfExperience:  parseInt(document.getElementById('yearsOfExperience').value) || 0,
+                hospitalAffiliation: document.getElementById('hospitalAffiliation').value.trim(),
+                address: {
+                    state: document.getElementById('state').value.trim(),
+                    lga:   document.getElementById('lga').value.trim()
+                }
+            });
+
+            setAuthToken(response.token);
+            setUserData(response.user);
+            setUserType('healthworker');
+
+            successDiv.textContent  = '✅ Registration successful! Redirecting to your dashboard...';
+            successDiv.style.display = 'block';
+
+            setTimeout(() => { window.location.href = 'doctor-dashboard.html'; }, 1500);
+
+        } catch (err) {
+            errorDiv.textContent  = err.message || 'Registration failed. Please try again.';
+            errorDiv.style.display = 'block';
+            submitBtn.textContent = 'Create Account';
+            submitBtn.disabled    = false;
+        }
+    });
+    </script>
 </body>
 </html>
